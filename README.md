@@ -1,4 +1,4 @@
-# generator-verb [![NPM version](https://badge.fury.io/js/generator-verb.png)](http://badge.fury.io/js/generator-verb)  [![Build Status](https://travis-ci.org/assemble/generator-verb.png)](https://travis-ci.org/assemble/generator-verb)
+# generator-verb [![NPM version](https://badge.fury.io/js/generator-verb.png)](http://badge.fury.io/js/generator-verb)
 
 > Kickstart documentation for any project! This is the official Yeoman generator for Verb, a zero-configuration markdown documentation generator that is extremely easy to use and extend.
 

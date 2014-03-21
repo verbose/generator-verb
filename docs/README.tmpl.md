@@ -1,4 +1,4 @@
-# {%= name %} [![NPM version](https://badge.fury.io/js/{%= name %}.png)](http://badge.fury.io/js/{%= name %}) {% if (travis) { %} [![Build Status]({%= travis %}.png)]({%= travis %}){% } %}
+# {%= name %} {%= badge('fury') %}
 
 > {%= description %}
 
