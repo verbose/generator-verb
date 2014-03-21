@@ -1,0 +1,5 @@
+{
+  "name": "<%= _.slugify(projectName) %>",
+  "version": "0.1.0"
+}
+

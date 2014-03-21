@@ -1,0 +1,11 @@
+# ===============================================
+# Verb config > https://github.com/assemble/verb
+# ===============================================
+
+# Directory for docs
+docs:      docs
+
+# Author
+username:  <%= username %>
+author:
+  name:    <%= author %>
