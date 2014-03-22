@@ -71,12 +71,13 @@ VerbGenerator.prototype.app = function app() {
   this.template('_README.tmpl.md', 'docs/README.tmpl.md');
 
   var pkgTemplate = this.readFileAsString(path.join(this.sourceRoot(), './_package.json'));
-  var completePkg = this.engine(pkgTemplate, this);
+  var expandedPkg = this.engine(pkgTemplate, this);
 
   if (fs.existsSync('package.json')) {
     var pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
     pkg.devDependencies = pkg.devDependencies || {};
-    _.merge(pkg, JSON.parse(completePkg));
+    _.defaults(pkg, JSON.parse(expandedPkg));
+    _.extend(pkg.devDependencies, JSON.parse(expandedPkg).devDependencies);
 
     fs.unlink('package.json');
     fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));

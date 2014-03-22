@@ -1,6 +1,6 @@
 ## Custom boilerplates
 
-We might put it on the roadmap, but currently this generator doesn't support custom boilerplates. If this is something you'd like to see supported natively, please submit a feature request or a pull request.
+We might put this on the roadmap, but currently this generator doesn't support custom boilerplates. If this is something you'd like to see supported natively, please submit a feature request or a pull request.
 
 However, a simple alternative is to use Bower to manage your custom docs. Here is a suggested workflow to get you started:
 
@@ -24,7 +24,7 @@ Create a new project that has the docs you want to use on other projects, and ad
 
 See [Bower.io](http://bower.io/) for suggestions on customizing this file.
 
-_Oh, and don't forget to actually add the documention/templates to the directories specified in the bower.json!_
+_Oh, and don't forget to actually add the documention/templates to the directories specified in bower.json!_
 
 ### 2. Register the package with Bower
 

@@ -9,9 +9,12 @@ Once installed globally, simply run:
 * `yo verb doc:[foo]` to add a [specific document](https://github.com/assemble/verb-readme-includes) or 'include'.
 
 ## Getting Started
-{%= docs("quickstart") %}
+{%= include("quickstart-yo") %}
 
-## Options
+## Usage
+{%= docs("usage") %}
+
+## CLI Options
 {%= docs("options") %}
 
 ## Author
