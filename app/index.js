@@ -74,7 +74,7 @@ VerbGenerator.prototype.app = function app() {
   var expandedPkg = this.engine(pkgTemplate, this);
 
   if (fs.existsSync('package.json')) {
-    var pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+    var pkg = JSON.parse(this.readFileAsString('package.json'));
     pkg.devDependencies = pkg.devDependencies || {};
     _.defaults(pkg, JSON.parse(expandedPkg));
     _.extend(pkg.devDependencies, JSON.parse(expandedPkg).devDependencies);

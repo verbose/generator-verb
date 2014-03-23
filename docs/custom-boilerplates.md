@@ -1,8 +1,10 @@
-## Custom boilerplates
+# Custom boilerplates
 
-We might put this on the roadmap, but currently this generator doesn't support custom boilerplates. If this is something you'd like to see supported natively, please submit a feature request or a pull request.
+> Use bower.json to manage your own custom boilerplates or templates for Verb
 
-However, a simple alternative is to use Bower to manage your custom docs. Here is a suggested workflow to get you started:
+We might put it on the roadmap to natively allow custom boilerplates. If this is something you'd like to see supported natively, please submit a [feature request or a pull request](https://github.com/assemble/generator-verb/issues).
+
+However, in the meantime a simple alternative is to use Bower to manage your custom docs. Here is a suggested workflow to get you started:
 
 ### 1. Create the boilerplate
 

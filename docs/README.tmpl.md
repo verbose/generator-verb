@@ -2,17 +2,15 @@
 
 > {%= description %}
 
-Once installed globally, simply run:
-
-* `yo verb` to to start a new project
-* `yo verb:boilerplate [foo]` to use a [specific boilerplate](https://github.com/assemble/verb-boilerplates). Verb boilerplates are just sets of documents.
-* `yo verb:doc [foo]` to add a [specific document](https://github.com/assemble/verb-readme-includes) or 'include'.
+We're just getting started here, **we'd love to see pull requests for other types of documentation** and for any kind of project!
 
 ## Getting Started
-{%= include("quickstart-yo") %}
 
 ## Usage
 {%= docs("usage") %}
+
+## Sub-generators
+{%= docs("sub-generators") %}
 
 ## CLI Options
 {%= docs("options") %}

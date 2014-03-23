@@ -7,24 +7,39 @@
 
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 var util = require('util');
+var file = require('fs-utils');
 var yeoman = require('yeoman-generator');
-var boilerplate = path.dirname(require.resolve('verb-boilerplates'));
 
 /**
- * Use a boilerplate to kickstart some documentation for your project.
+ * Add a runtime config file for Verb
  */
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
+  if (args.length === 0) {
+    args[0] = 'yaml';
+  }
   yeoman.generators.NamedBase.apply(this, arguments);
 };
 
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 VerbGenerator.prototype.files = function files() {
-  if(this.name === 'docs') {
-    this.log.error('"docs" is not a valid boilerplate');
+  if(this.name === 'yaml') {
+    this.copy('_verbrc.yml', '.verbrc.yml');
   }
-  this.directory(path.join(boilerplate, this.name), 'docs');
+
+  if(this.name === 'json') {
+    this.copy('_verbrc', '.verbrc');
+  }
+
+  if(this.name === 'verbfile') {
+    this.copy('_verbfile.js', 'verbfile.js');
+  }
+
+  if(this.name === 'travis') {
+    this.copy('_travis.yml', '.travis.yml');
+  }
 };

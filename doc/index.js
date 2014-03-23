@@ -31,13 +31,13 @@ VerbGenerator.prototype.files = function files() {
   });
 
   // var list = fs.readdirSync(includeDir);
-  // if(!path.join(includeDir, this.name)) {
-  //   this.log.error('"' + this.name + '" is not a valid template name.');
-  //   this.log.error('Please choose one of the following:');
-  //   this.log.error(list = '\n  ' + list.join('  \n  ') + '\n');
+  // if(!path.join(includeDir, self.name)) {
+  //   self.log.error('"' + self.name + '" is not a valid template name.');
+  //   self.log.error('Please choose one of the following:');
+  //   self.log.error(list = '\n  ' + list.join('  \n  ') + '\n');
   // } else {
-
+    this.copy(path.join(includeDir, this.name), path.join('docs', this.name));
   // }
 
-  this.copy(path.join(includeDir, this.name), path.join('docs', this.name));
+
 };

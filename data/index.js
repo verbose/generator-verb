@@ -7,13 +7,14 @@
 
 'use strict';
 
+var fs = require('fs');
 var path = require('path');
 var util = require('util');
+var file = require('fs-utils');
 var yeoman = require('yeoman-generator');
-var boilerplate = path.dirname(require.resolve('verb-boilerplates'));
 
 /**
- * Use a boilerplate to kickstart some documentation for your project.
+ * Add a data file for Verb
  */
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
@@ -23,8 +24,13 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 VerbGenerator.prototype.files = function files() {
-  if(this.name === 'docs') {
-    this.log.error('"docs" is not a valid boilerplate');
+  var self = this;
+
+  var src = function(str) {
+    return path.join(self._sourceRoot, str);
+  };
+
+  if(this.name === 'changelog') {
+    this.copy(src('_changelog.yml'), 'CHANGELOG');
   }
-  this.directory(path.join(boilerplate, this.name), 'docs');
 };

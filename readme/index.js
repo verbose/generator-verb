@@ -10,10 +10,16 @@
 var util = require('util');
 var yeoman = require('yeoman-generator');
 
+/**
+ * Add a README template to your project
+ */
+
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
+  if (args.length === 0) {
+    args[0] = 'README.tmpl';
+  }
   yeoman.generators.NamedBase.apply(this, arguments);
 };
-
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 VerbGenerator.prototype.files = function files() {
