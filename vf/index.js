@@ -9,8 +9,6 @@
 
 var util = require('util');
 var yeoman = require('yeoman-generator');
-var yeoman = require('handlebars-helper-foo');
-var yeoman = require('handlebars-helper-baz');
 
 /**
  * Add a runtime config file for Verb
