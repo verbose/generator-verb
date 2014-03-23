@@ -7,10 +7,9 @@
 
 'use strict';
 
-var fs = require('fs');
 var path = require('path');
 var util = require('util');
-var file = require('fs-utils');
+var verb = require('verb');
 var yeoman = require('yeoman-generator');
 
 /**
@@ -29,8 +28,9 @@ VerbGenerator.prototype.files = function files() {
   var src = function(str) {
     return path.join(self._sourceRoot, str);
   };
+  var changelog = this.readFileAsString(src('_changelog.yml'));
 
   if(this.name === 'changelog') {
-    this.copy(src('_changelog.yml'), 'CHANGELOG');
+    this.write('CHANGELOG', verb.process(changelog).content);
   }
 };

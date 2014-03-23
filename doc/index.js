@@ -7,7 +7,6 @@
 
 'use strict';
 
-var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var yeoman = require('yeoman-generator');
@@ -23,21 +22,11 @@ util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 VerbGenerator.prototype.files = function files() {
   var self = this;
 
-
   this.conflicter.resolve(function (err) {
     if(self.name === 'docs') {
-      self.log.error('"docs" is not a valid file name');
+      self.log.error('"docs" is not a valid file name', err);
     }
   });
 
-  // var list = fs.readdirSync(includeDir);
-  // if(!path.join(includeDir, self.name)) {
-  //   self.log.error('"' + self.name + '" is not a valid template name.');
-  //   self.log.error('Please choose one of the following:');
-  //   self.log.error(list = '\n  ' + list.join('  \n  ') + '\n');
-  // } else {
-    this.copy(path.join(includeDir, this.name), path.join('docs', this.name));
-  // }
-
-
+  this.copy(path.join(includeDir, this.name), path.join('docs', this.name));
 };

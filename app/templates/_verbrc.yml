@@ -1,11 +1,7 @@
-# ===============================================
-# Verb config > https://github.com/assemble/verb
-# ===============================================
-
-# Directory for docs
-docs:      docs
+plugins:   # plugins/*.js
+tags:      # tags/*.js
 
 # Author
 username:  <%= username %>
 author:
-  name:    <%= author %>
+  name:    <%= authorName %>

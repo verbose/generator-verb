@@ -17,6 +17,9 @@ var boilerplate = path.dirname(require.resolve('verb-boilerplates'));
  */
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
+  // Make 'node' the default boilerplate
+  if (args.length === 0) {args[0] = 'node'; }
+
   yeoman.generators.NamedBase.apply(this, arguments);
 };
 

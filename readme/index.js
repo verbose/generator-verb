@@ -23,5 +23,7 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 VerbGenerator.prototype.files = function files() {
-  this.copy('_README.tmpl.md', 'docs/README.tmpl.md');
+  var app = require('../_lib/utils').app;
+
+  this.copy(app('_README.tmpl.md'), 'docs/README.tmpl.md');
 };

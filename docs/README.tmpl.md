@@ -15,15 +15,15 @@ We're just getting started here, **we'd love to see pull requests for other type
 ## CLI Options
 {%= docs("options") %}
 
+## Gotta have more Verb
+{%= docs("related") %}
+
 ## Author
 
 **Jon Schlinkert**
 
 + [github/jonschlinkert](http://github.com/jonschlinkert)
 + [twitter/jonschlinkert](https://twitter.com/jonschlinkert)
-
-## Related
-{%= docs("related") %}
 
 ## License
 {%= copyright() %}

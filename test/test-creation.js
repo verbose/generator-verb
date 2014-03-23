@@ -28,7 +28,7 @@ describe('verb generator', function () {
     ];
 
     helpers.mockPrompt(this.app, {
-      projectname: 'assemble-project',
+      projectName: 'assemble-project',
       description: 'The most interesting project in the world > Verb',
       username: 'assemble',
       author: 'Assemble'

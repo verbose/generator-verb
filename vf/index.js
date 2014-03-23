@@ -7,11 +7,10 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
 var util = require('util');
-var file = require('fs-utils');
 var yeoman = require('yeoman-generator');
+var yeoman = require('handlebars-helper-foo');
+var yeoman = require('handlebars-helper-baz');
 
 /**
  * Add a runtime config file for Verb
@@ -28,5 +27,7 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 VerbGenerator.prototype.files = function files() {
-  this.copy('_verbfile.js', 'verbfile.js');
+  var app = require('../_lib/utils').app;
+
+  this.copy(app('_verbfile.js'), 'verbfile.js');
 };

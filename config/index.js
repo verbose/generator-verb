@@ -7,14 +7,11 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
 var util = require('util');
-var file = require('fs-utils');
 var yeoman = require('yeoman-generator');
 
 /**
- * Add a runtime config file for Verb
+ * Add a config file
  */
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
@@ -27,16 +24,42 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 VerbGenerator.prototype.files = function files() {
+  var app = require('../_lib/utils').app;
+
+  /**
+   * Verb runtime config
+   */
+
   if(this.name === 'yaml') {
-    this.copy('_verbrc.yml', '.verbrc.yml');
+    this.copy(app('_verbrc.yml'), '.verbrc.yml');
   }
 
   if(this.name === 'json') {
     this.copy('_verbrc', '.verbrc');
   }
 
-  if(this.name === 'verbfile') {
+  if(this.name === 'vf' || this.name === 'verbfile') {
     this.copy('_verbfile.js', 'verbfile.js');
+  }
+
+  /**
+   * Other config files
+   */
+
+  if(this.name === 'jshint') {
+    this.copy(app('_jshintrc'), '.jshintrc');
+  }
+
+  if(this.name === 'gi' || this.name === 'gitignore') {
+    this.copy(app('_gitignore'), '.gitignore');
+  }
+
+  if(this.name === 'ga' || this.name === 'gitattributes') {
+    this.copy(app('_gitattributes'), '.gitattributes');
+  }
+
+  if(this.name === 'pkg' || this.name === 'package') {
+    this.copy(app('_package.json'), 'package.json');
   }
 
   if(this.name === 'travis') {

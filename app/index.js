@@ -33,13 +33,13 @@ VerbGenerator.prototype.askFor = function askFor() {
   var username = this.user.git.username || process.env.user || process.env.username || 'placeholder';
 
   prompts.push({
-    name: 'author',
+    name: 'authorName',
     message: 'What is the author\'s name?',
     default: username
   });
 
   prompts.push({
-    name: 'projectname',
+    name: 'projectName',
     message: 'What do you want to call your project?',
     default: this.appname
   });
@@ -57,10 +57,10 @@ VerbGenerator.prototype.askFor = function askFor() {
   });
 
   this.prompt(prompts, function (props) {
-    this.projectname = (props.projectname).replace(/^[ _]|[ _]$/g, '');
+    this.projectName = (props.projectName).replace(/^[ _]|[ _]$/g, '');
     this.description = props.description;
     this.username = props.username;
-    this.author = props.author;
+    this.authorName = props.authorName;
 
     cb();
   }.bind(this));
