@@ -15,9 +15,6 @@ We're just getting started here, **we'd love to see pull requests for other type
 ## CLI Options
 {%= docs("options") %}
 
-## Gotta have more Verb
-{%= docs("related") %}
-
 ## Author
 
 **Jon Schlinkert**

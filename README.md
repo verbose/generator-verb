@@ -115,13 +115,6 @@ Command: `-w` | `--skip-welcome-message`
 
 Skips the Yeoman welcome message.
 
-## Gotta have more Verb
-
-* [Site generator](https://github.com/jonschlinkert/generator-site)
-* [Assemble generator](https://github.com/assemble/generator-assemble)
-* [Assemble Helper generator](https://github.com/assemble/generator-helper)
-* [Assemble Plugin generator](https://github.com/assemble/generator-plugin)
-
 ## Author
 
 **Jon Schlinkert**
