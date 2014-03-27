@@ -1,6 +1,6 @@
 {
   "name": "<%= _.slugify(projectname) %>",
-  "description": "<%= description %>",
+  "description": "<%= projectdesc %>",
   "version": "0.1.0",
   "homepage": "https://github.com/<%= username %>/<%= _.slugify(projectname) %>",
   "author": {
