@@ -12,26 +12,23 @@ describe('verb generator', function () {
         return done(err);
       }
 
-      this.app = helpers.createGenerator('verb:app', [
-        '../../app'
-      ]);
+      this.app = helpers.createGenerator('verb:app', ['../../app']);
       done();
     }.bind(this));
   });
 
   it('creates expected files', function (done) {
     var expected = [
-      // Runtime config
       '.verbrc.yml',
       'package.json',
       'docs/README.tmpl.md'
     ];
 
     helpers.mockPrompt(this.app, {
-      projectName: 'assemble-project',
+      projectname: 'verb-project',
       description: 'The most interesting project in the world > Verb',
-      username: 'assemble',
-      author: 'Assemble'
+      username: 'verb',
+      author: 'Jon Schlinkert'
     });
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {

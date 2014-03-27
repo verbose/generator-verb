@@ -37,12 +37,33 @@ VerbGenerator.prototype.askFor = function askFor() {
 
   var username = this.user.git.username || process.env.user || process.env.username || 'placeholder';
   prompts.push({
+    name: 'authorname',
+    message: 'What is the author\'s name?',
+    default: username
+  });
+
+  prompts.push({
+    name: 'projectname',
+    message: 'What is the name of the project?',
+    default: this.appname
+  });
+
+  prompts.push({
     name: 'username',
     message: 'What username or org is the repo using on GitHub?',
     default: username
   });
 
+  prompts.push({
+    name: 'projectdesc',
+    message: 'Want to add a description?',
+    default: 'Generate new Assemble projects using best practices and sensible defaults.'
+  });
+
   this.prompt(prompts, function (props) {
+    this.projectname = props.projectname;
+    this.projectdesc = props.projectdesc;
+    this.authorname = props.authorname;
     this.username = props.username;
     cb();
   }.bind(this));
@@ -54,7 +75,7 @@ VerbGenerator.prototype.app = function app() {
   this.mkdir('docs');
 
   if (!fs.existsSync('docs/README.tmpl.md')) {
-    this.template('_README.tmpl.md', 'docs/README.tmpl.md');
+    this.template('README.tmpl.md', 'docs/README.tmpl.md');
   }
 
   var pkgTemplate = this.readFileAsString(path.join(this.sourceRoot(), './_package.json'));
@@ -74,9 +95,30 @@ VerbGenerator.prototype.app = function app() {
 };
 
 
-
-VerbGenerator.prototype.runtime = function runtime() {
+VerbGenerator.prototype.verbfile = function verbfile() {
   if (!fs.existsSync('.verbrc.yml')) {
-    this.copy('_verbrc.yml', '.verbrc.yml');
+    this.copy('verbrc.yml', '.verbrc.yml');
+  }
+};
+
+VerbGenerator.prototype.jshintrc = function jshintrc() {
+  if (!fs.existsSync('.jshintrc')) {
+    this.copy('jshintrc', '.jshintrc');
+  }
+};
+
+VerbGenerator.prototype.git = function git() {
+  if (!fs.existsSync('.gitignore')) {
+    this.copy('gitignore', '.gitignore');
+  }
+
+  if (!fs.existsSync('.gitattributes')) {
+    this.copy('gitattributes', '.gitattributes');
+  }
+};
+
+VerbGenerator.prototype.license = function license() {
+  if (!fs.existsSync('LICENSE-MIT')) {
+    this.template('LICENSE-MIT');
   }
 };
