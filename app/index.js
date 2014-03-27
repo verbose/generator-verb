@@ -1,9 +1,15 @@
+/**
+ * generator-verb <https://github.com/assemble/generator-ver>
+ */
+
 'use strict';
-var util = require('util');
+
 var fs = require('fs');
 var path = require('path');
+var util = require('util');
 var _ = require('lodash');
 var yeoman = require('yeoman-generator');
+
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
@@ -14,61 +20,42 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
       skipMessage: this.options['skip-welcome-message'] || this.options['w']
     });
   });
-
-
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
 };
-
 util.inherits(VerbGenerator, yeoman.generators.Base);
+
+
 
 VerbGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
   var prompts = [];
 
-  // have Yeoman greet the user unless skipped
+  // have Yeoman greet the user, unless skipped
   if (!this.options['skip-welcome-message']) {
     console.log(this.yeoman);
   }
 
   var username = this.user.git.username || process.env.user || process.env.username || 'placeholder';
-
-  prompts.push({
-    name: 'authorName',
-    message: 'What is the author\'s name?',
-    default: username
-  });
-
-  prompts.push({
-    name: 'projectName',
-    message: 'What do you want to call your project?',
-    default: this.appname
-  });
-
   prompts.push({
     name: 'username',
-    message: 'What username or org will the repo use on GitHub?',
+    message: 'What username or org is the repo using on GitHub?',
     default: username
-  });
-
-  prompts.push({
-    name: 'description',
-    message: 'Project description?',
-    default: 'The most interesting project in the world > Verb.'
   });
 
   this.prompt(prompts, function (props) {
-    this.projectName = (props.projectName).replace(/^[ _]|[ _]$/g, '');
-    this.description = props.description;
     this.username = props.username;
-    this.authorName = props.authorName;
-
     cb();
   }.bind(this));
 };
 
+
+
 VerbGenerator.prototype.app = function app() {
   this.mkdir('docs');
-  this.template('_README.tmpl.md', 'docs/README.tmpl.md');
+
+  if (!fs.existsSync('docs/README.tmpl.md')) {
+    this.template('_README.tmpl.md', 'docs/README.tmpl.md');
+  }
 
   var pkgTemplate = this.readFileAsString(path.join(this.sourceRoot(), './_package.json'));
   var expandedPkg = this.engine(pkgTemplate, this);
@@ -84,11 +71,12 @@ VerbGenerator.prototype.app = function app() {
   } else {
     this.template('_package.json', 'package.json');
   }
-
 };
 
+
+
 VerbGenerator.prototype.runtime = function runtime() {
-  if (!fs.existsSync('.verbrc.yml') && !fs.existsSync('.verbrc')) {
+  if (!fs.existsSync('.verbrc.yml')) {
     this.copy('_verbrc.yml', '.verbrc.yml');
   }
 };

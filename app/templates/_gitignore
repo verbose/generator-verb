@@ -1,15 +1,23 @@
 # Numerous always-ignore extensions
-.ruby-version
+*.csv
+*.dat
 *.diff
 *.err
-*.orig
+*.gz
 *.log
+*.orig
+*.out
+*.pid
 *.rej
+*.seed
 *.swo
 *.swp
-*.zip
 *.vi
+*.yo-rc.json
+*.zip
 *~
+.ruby-version
+lib-cov
 
 # OS or Editor folders
 *.esproj
@@ -33,21 +41,13 @@ Thumbs.db
 validation-status.json
 validation-report.json
 
-# Folders to ignore
+# Vendor packages
+node_modules
+bower_components
+vendor
+
+# General folders and files to ignore
+_gh_pages
 tmp
 temp
 TODO.md
-vendor
-node_modules
-bower_components
-_gh_pages
-_site
-_draft
-
-# Planned
-content/blog
-content/boilerplates
-content/examples
-content/tutorials
-
-build-chain.fw.png

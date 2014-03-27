@@ -31,15 +31,15 @@ VerbGenerator.prototype.files = function files() {
    */
 
   if(this.name === 'yaml') {
-    this.copy(app('_verbrc.yml'), '.verbrc.yml');
+    this.template(app('_verbrc.yml'), '.verbrc.yml');
   }
 
   if(this.name === 'json') {
-    this.copy('_verbrc', '.verbrc');
+    this.template('_verbrc', '.verbrc');
   }
 
   if(this.name === 'vf' || this.name === 'verbfile') {
-    this.copy('_verbfile.js', 'verbfile.js');
+    this.template('_verbfile.js', 'verbfile.js');
   }
 
   /**
@@ -59,7 +59,7 @@ VerbGenerator.prototype.files = function files() {
   }
 
   if(this.name === 'pkg' || this.name === 'package') {
-    this.copy(app('_package.json'), 'package.json');
+    this.template(app('_package.json'), 'package.json');
   }
 
   if(this.name === 'travis') {
