@@ -28,5 +28,5 @@ VerbGenerator.prototype.files = function files() {
     }
   });
 
-  this.copy(path.join(includeDir, this.name), path.join('docs', this.name));
+  this.template(path.join(includeDir, this.name), path.join('docs', this.name));
 };

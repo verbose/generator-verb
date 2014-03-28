@@ -1,5 +1,3 @@
-var path = require('path');
-
 exports.app = function(filepath) {
-  return path.join('../../app/templates', filepath);
+  return require('path').join('../../app/templates', filepath);
 };

@@ -9,7 +9,6 @@
 
 var path = require('path');
 var util = require('util');
-var verb = require('verb');
 var yeoman = require('yeoman-generator');
 
 /**
@@ -23,14 +22,10 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 VerbGenerator.prototype.files = function files() {
-  var self = this;
-
-  var src = function(str) {
-    return path.join(self._sourceRoot, str);
-  };
-  var changelog = this.readFileAsString(src('_changelog.yml'));
 
   if(this.name === 'changelog') {
-    this.write('CHANGELOG', verb.process(changelog).content);
+    this.copy('_changelog.yml', 'CHANGELOG');
+  } else {
+    console.log('Cannot find data file:', this.name);
   }
 };

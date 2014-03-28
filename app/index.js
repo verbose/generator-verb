@@ -7,8 +7,10 @@
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
-var _ = require('lodash');
+var changeCase = require('change-case');
+var Configstore = require('configstore');
 var yeoman = require('yeoman-generator');
+var _ = require('lodash');
 
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
@@ -21,6 +23,8 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
     });
   });
   this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+  this.verbConfig = new Configstore(this.pkg.name);
+
 };
 util.inherits(VerbGenerator, yeoman.generators.Base);
 
@@ -39,7 +43,7 @@ VerbGenerator.prototype.askFor = function askFor() {
   prompts.push({
     name: 'authorname',
     message: 'What is the author\'s name?',
-    default: username
+    default: this.verbConfig.get('author').name || username
   });
 
   prompts.push({
@@ -51,7 +55,7 @@ VerbGenerator.prototype.askFor = function askFor() {
   prompts.push({
     name: 'username',
     message: 'What username or org is the repo using on GitHub?',
-    default: username
+    default: this.verbConfig.get('username') || username
   });
 
   prompts.push({
@@ -65,11 +69,12 @@ VerbGenerator.prototype.askFor = function askFor() {
     this.projectdesc = props.projectdesc;
     this.authorname = props.authorname;
     this.username = props.username;
+
+    this.verbConfig.set('author', {name: this.authorname});
+    this.verbConfig.set('username', this.username);
     cb();
   }.bind(this));
 };
-
-
 
 VerbGenerator.prototype.app = function app() {
   this.mkdir('docs');
