@@ -16,7 +16,7 @@ var yeoman = require('yeoman-generator');
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   if (args.length === 0) {
-    args[0] = 'yaml';
+    args[0] = 'verbrc';
   }
   yeoman.generators.NamedBase.apply(this, arguments);
 };
@@ -30,12 +30,8 @@ VerbGenerator.prototype.files = function files() {
    * Verb runtime config
    */
 
-  if(this.name === 'yaml') {
-    this.template(app('_verbrc.yml'), '.verbrc.yml');
-  }
-
-  if(this.name === 'json') {
-    this.template('_verbrc', '.verbrc');
+  if(this.name === 'verbrc') {
+    this.template(app('verbrc.yml'), '.verbrc.yml');
   }
 
   if(this.name === 'vf' || this.name === 'verbfile') {
@@ -47,15 +43,15 @@ VerbGenerator.prototype.files = function files() {
    */
 
   if(this.name === 'jshint') {
-    this.copy(app('_jshintrc'), '.jshintrc');
+    this.copy(app('jshintrc'), '.jshintrc');
   }
 
   if(this.name === 'gi' || this.name === 'gitignore') {
-    this.copy(app('_gitignore'), '.gitignore');
+    this.copy(app('gitignore'), '.gitignore');
   }
 
   if(this.name === 'ga' || this.name === 'gitattributes') {
-    this.copy(app('_gitattributes'), '.gitattributes');
+    this.copy(app('gitattributes'), '.gitattributes');
   }
 
   if(this.name === 'pkg' || this.name === 'package') {
@@ -63,6 +59,6 @@ VerbGenerator.prototype.files = function files() {
   }
 
   if(this.name === 'travis') {
-    this.copy('_travis.yml', '.travis.yml');
+    this.copy('travis.yml', '.travis.yml');
   }
 };

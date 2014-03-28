@@ -27,6 +27,7 @@ VerbGenerator.prototype.files = function files() {
       self.log.error('"docs" is not a valid file name', err);
     }
   });
+  var name = this.name + '.md';
 
-  this.template(path.join(includeDir, this.name), path.join('docs', this.name));
+  this.template(path.join(includeDir, name), path.join('docs', name));
 };

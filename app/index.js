@@ -9,12 +9,25 @@ var path = require('path');
 var util = require('util');
 var changeCase = require('change-case');
 var Configstore = require('configstore');
+var normalize = require('normalize-pkg');
 var yeoman = require('yeoman-generator');
+var log = require('verbalize');
 var _ = require('lodash');
+
+
+log.runner = 'generator-verb';
+var verbConfig = new Configstore('generator-verb');
+var userPkg = {};
 
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
+  var self = this;
+
+  this.readJSON = function() {
+    var filepath = path.join.apply(path, arguments);
+    return JSON.parse(self.readFileAsString(filepath));
+  };
 
   this.on('end', function () {
     this.installDependencies({
@@ -22,9 +35,14 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
       skipMessage: this.options['skip-welcome-message'] || this.options['w']
     });
   });
-  this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-  this.verbConfig = new Configstore(this.pkg.name);
 
+  this.pkg = this.readJSON(__dirname, '../package.json');
+
+  this.username = this.user.git.username || process.env.user || process.env.username || null;
+
+  if (fs.existsSync('package.json')) {
+    userPkg = normalize.all(this.readJSON('package.json'));
+  }
 };
 util.inherits(VerbGenerator, yeoman.generators.Base);
 
@@ -37,41 +55,54 @@ VerbGenerator.prototype.askFor = function askFor() {
   // have Yeoman greet the user, unless skipped
   if (!this.options['skip-welcome-message']) {
     console.log(this.yeoman);
+    introductionMessage();
   }
-
-  var username = this.user.git.username || process.env.user || process.env.username || 'placeholder';
-  prompts.push({
-    name: 'authorname',
-    message: 'What is the author\'s name?',
-    default: this.verbConfig.get('author').name || username
-  });
 
   prompts.push({
     name: 'projectname',
     message: 'What is the name of the project?',
-    default: this.appname
-  });
-
-  prompts.push({
-    name: 'username',
-    message: 'What username or org is the repo using on GitHub?',
-    default: this.verbConfig.get('username') || username
+    default: userPkg.name ? userPkg.name : this.appname
   });
 
   prompts.push({
     name: 'projectdesc',
     message: 'Want to add a description?',
-    default: 'Generate new Assemble projects using best practices and sensible defaults.'
+    default: userPkg.description || 'The most interesting project in the world > Verb'
+  });
+
+  prompts.push({
+    name: 'authorname',
+    message: 'What is the author\'s name?',
+    default: verbConfig.get('author').name || (userPkg.author.name ? userPkg.author.name : this.username)
+  });
+
+  prompts.push({
+    name: 'authorurl',
+    message: 'What is the author\'s URL?',
+    default: verbConfig.get('author').url || (userPkg.author.url ? userPkg.author.url : ('https://github.com/' + this.username))
+  });
+
+  prompts.push({
+    name: 'username',
+    message: 'If pushed to GitHub, what username/org will the repo use?',
+    default: verbConfig.get('username') || this.username
   });
 
   this.prompt(prompts, function (props) {
+
+    verbConfig.set('username', props.username);
+    verbConfig.set('author', {
+      name: props.authorname,
+      url: props.authorurl
+    });
+
+    this.authorname = verbConfig.get('author').name;
+    this.authorurl = verbConfig.get('author').url;
+    this.username = verbConfig.get('username');
+
     this.projectname = props.projectname;
     this.projectdesc = props.projectdesc;
-    this.authorname = props.authorname;
-    this.username = props.username;
 
-    this.verbConfig.set('author', {name: this.authorname});
-    this.verbConfig.set('username', this.username);
     cb();
   }.bind(this));
 };
@@ -84,13 +115,25 @@ VerbGenerator.prototype.app = function app() {
   }
 
   var pkgTemplate = this.readFileAsString(path.join(this.sourceRoot(), './_package.json'));
-  var expandedPkg = this.engine(pkgTemplate, this);
+  var verbDefaultPkg = this.engine(pkgTemplate, this);
 
+  // If a package.json already exists, let's try to just update the
+  // values we asked about, and leave other data alone.
   if (fs.existsSync('package.json')) {
-    var pkg = JSON.parse(this.readFileAsString('package.json'));
+    var pkg = this.readJSON('package.json');
     pkg.devDependencies = pkg.devDependencies || {};
-    _.defaults(pkg, JSON.parse(expandedPkg));
-    _.extend(pkg.devDependencies, JSON.parse(expandedPkg).devDependencies);
+
+    // Add any missing properties to the existing package.json
+    _.defaults(pkg, JSON.parse(verbDefaultPkg));
+
+    // Update some values we asked the user to provide.
+    _.extend(pkg.name, this.projectname);
+    _.extend(pkg.description, this.projectdesc);
+    _.extend(pkg.author.name, this.authorname);
+    _.extend(pkg.author.url, this.authorurl);
+
+    // Add `verb` to devDependencies. That's why we're here, right?
+    _.extend(pkg.devDependencies, JSON.parse(verbDefaultPkg).devDependencies);
 
     fs.unlink('package.json');
     fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
@@ -127,3 +170,12 @@ VerbGenerator.prototype.license = function license() {
     this.template('LICENSE-MIT');
   }
 };
+
+function introductionMessage() {
+  console.log(log.bold('  Head\'s up!'));
+  console.log();
+  console.log(log.gray('  Verb saves time by offering to re-use answers from the'));
+  console.log(log.gray('  previous run. If something is incorrect, no worries!'));
+  console.log(log.gray('  Just provide a new value!'));
+  console.log();
+}

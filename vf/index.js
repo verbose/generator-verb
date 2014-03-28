@@ -27,5 +27,5 @@ util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 VerbGenerator.prototype.files = function files() {
   var app = require('../_lib/utils').app;
 
-  this.copy(app('_verbfile.js'), 'verbfile.js');
+  this.copy(app('verbfile.js'), 'verbfile.js');
 };

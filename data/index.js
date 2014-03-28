@@ -25,7 +25,5 @@ VerbGenerator.prototype.files = function files() {
 
   if(this.name === 'changelog') {
     this.copy('_changelog.yml', 'CHANGELOG');
-  } else {
-    console.log('Cannot find data file:', this.name);
   }
 };
