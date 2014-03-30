@@ -12,17 +12,25 @@ var Configstore = require('configstore');
 var normalize = require('normalize-pkg');
 var yeoman = require('yeoman-generator');
 var log = require('verbalize');
-var _ = require('lodash');
 
+function introductionMessage() {
+  console.log(log.bold('  Head\'s up!'));
+  console.log();
+  console.log(log.gray('  Verb saves time by offering to re-use answers from the'));
+  console.log(log.gray('  previous run. If something is incorrect, no worries!'));
+  console.log(log.gray('  Just provide a new value!'));
+  console.log();
+}
 
 log.runner = 'generator-verb';
 var verbConfig = new Configstore('generator-verb');
 var userPkg = {};
 
-
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
   var self = this;
+
+  this.appname = changeCase.paramCase(this.appname);
 
   this.readJSON = function() {
     var filepath = path.join.apply(path, arguments);
@@ -47,7 +55,6 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
 util.inherits(VerbGenerator, yeoman.generators.Base);
 
 
-
 VerbGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
   var prompts = [];
@@ -57,6 +64,7 @@ VerbGenerator.prototype.askFor = function askFor() {
     console.log(this.yeoman);
     introductionMessage();
   }
+
 
   prompts.push({
     name: 'projectname',
@@ -84,7 +92,7 @@ VerbGenerator.prototype.askFor = function askFor() {
 
   prompts.push({
     name: 'username',
-    message: 'If pushed to GitHub, what username/org will the repo use?',
+    message: 'If pushed to GitHub, what will the username/org be?',
     default: verbConfig.get('username') || this.username
   });
 
@@ -124,28 +132,21 @@ VerbGenerator.prototype.app = function app() {
     pkg.devDependencies = pkg.devDependencies || {};
 
     // Add any missing properties to the existing package.json
-    _.defaults(pkg, JSON.parse(verbDefaultPkg));
+    this._.defaults(pkg, JSON.parse(verbDefaultPkg));
 
     // Update some values we asked the user to provide.
-    _.extend(pkg.name, this.projectname);
-    _.extend(pkg.description, this.projectdesc);
-    _.extend(pkg.author.name, this.authorname);
-    _.extend(pkg.author.url, this.authorurl);
+    this._.extend(pkg.name, this.projectname);
+    this._.extend(pkg.description, this.projectdesc);
+    this._.extend(pkg.author.name, this.authorname);
+    this._.extend(pkg.author.url, this.authorurl);
 
     // Add `verb` to devDependencies. That's why we're here, right?
-    _.extend(pkg.devDependencies, JSON.parse(verbDefaultPkg).devDependencies);
+    this._.extend(pkg.devDependencies, JSON.parse(verbDefaultPkg).devDependencies);
 
     fs.unlink('package.json');
     fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
   } else {
     this.template('_package.json', 'package.json');
-  }
-};
-
-
-VerbGenerator.prototype.verbfile = function verbfile() {
-  if (!fs.existsSync('.verbrc.yml')) {
-    this.copy('verbrc.yml', '.verbrc.yml');
   }
 };
 
@@ -170,12 +171,3 @@ VerbGenerator.prototype.license = function license() {
     this.template('LICENSE-MIT');
   }
 };
-
-function introductionMessage() {
-  console.log(log.bold('  Head\'s up!'));
-  console.log();
-  console.log(log.gray('  Verb saves time by offering to re-use answers from the'));
-  console.log(log.gray('  previous run. If something is incorrect, no worries!'));
-  console.log(log.gray('  Just provide a new value!'));
-  console.log();
-}
