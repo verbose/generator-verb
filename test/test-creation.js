@@ -19,7 +19,7 @@ describe('verb', function () {
     var expected = [
       'docs/README.tmpl.md',
       'package.json',
-      '.verbrc.yml',
+//      '.verbrc.yml',
       '.jshintrc',
       '.gitignore',
       '.gitattributes',

@@ -35,7 +35,8 @@
     "normalize-pkg": "~0.1.0",
     "yeoman-generator": "~0.16.0",
     "verbalize": "~0.1.0",
-    "verb": "~0.2.0"
+    "verb": "~0.2.0",
+    "verb-readme-includes": "~0.1.1"
   },
   "devDependencies": {
     "verb": "~0.2.0",

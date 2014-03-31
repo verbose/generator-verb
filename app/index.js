@@ -65,6 +65,7 @@ VerbGenerator.prototype.askFor = function askFor() {
     introductionMessage();
   }
 
+  var author = verbConfig.get('author') || {};
 
   prompts.push({
     name: 'projectname',
@@ -81,13 +82,13 @@ VerbGenerator.prototype.askFor = function askFor() {
   prompts.push({
     name: 'authorname',
     message: 'What is the author\'s name?',
-    default: verbConfig.get('author').name || (userPkg.author.name ? userPkg.author.name : this.username)
+    default: author.name || ((userPkg.author && userPkg.author.name) ? userPkg.author.name : this.username)
   });
 
   prompts.push({
     name: 'authorurl',
     message: 'What is the author\'s URL?',
-    default: verbConfig.get('author').url || (userPkg.author.url ? userPkg.author.url : ('https://github.com/' + this.username))
+    default: author.url || ((userPkg.author && userPkg.author.url) ? userPkg.author.url : ('https://github.com/' + this.username))
   });
 
   prompts.push({
