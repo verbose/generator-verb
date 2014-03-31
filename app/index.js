@@ -66,7 +66,6 @@ VerbGenerator.prototype.askFor = function askFor() {
   }
 
   var author = verbConfig.get('author') || {};
-  console.log('author', author);
 
   prompts.push({
     name: 'projectname',
