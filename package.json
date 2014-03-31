@@ -36,7 +36,10 @@
     "yeoman-generator": "~0.16.0",
     "verbalize": "~0.1.0",
     "verb": "~0.2.0",
-    "verb-readme-includes": "~0.1.1"
+    "verb-readme-badges": "0.0.5",
+    "verb-contrib-templates": "0.0.5",
+    "verb-readme-includes": "~0.1.1",
+    "verb-boilerplates": "0.0.1"
   },
   "devDependencies": {
     "verb": "~0.2.0",

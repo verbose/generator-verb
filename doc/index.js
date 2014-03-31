@@ -11,9 +11,14 @@ var path = require('path');
 var util = require('util');
 var yeoman = require('yeoman-generator');
 var includes = path.dirname(require.resolve('verb-readme-includes'));
+console.log('includes:', includes);
+
 var includeDir = path.join(includes, 'templates');
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
+  if (args.length === 0) {
+    args[0] = 'install';
+  }
   yeoman.generators.NamedBase.apply(this, arguments);
 };
 
