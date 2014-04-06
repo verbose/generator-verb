@@ -42,6 +42,10 @@ VerbGenerator.prototype.files = function files() {
    * Other config files
    */
 
+  if(this.name === 'bowerrc') {
+    this.copy(app('bowerrc'), '.bowerrc');
+  }
+
   if(this.name === 'jshint') {
     this.copy(app('jshintrc'), '.jshintrc');
   }

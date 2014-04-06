@@ -1,5 +1,7 @@
-/**
- * generator-verb <https://github.com/assemble/generator-ver>
+/*!
+ * generator-verb <https://github.com/assemble/generator-verb>
+ * Copyright (c) 2014 Jon Schlinkert, contributors.
+ * Licensed under the MIT License
  */
 
 'use strict';
@@ -23,12 +25,16 @@ function introductionMessage() {
 }
 
 log.runner = 'generator-verb';
+
 var verbConfig = new Configstore('generator-verb');
 var userPkg = {};
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
   var self = this;
+
+  // Mix methods from change-case into yeoman's Lo-Dash
+  this._.mixin(changeCase);
 
   this.appname = changeCase.paramCase(this.appname);
 

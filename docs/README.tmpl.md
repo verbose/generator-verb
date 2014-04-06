@@ -6,13 +6,16 @@ We're just getting started here, **we'd love to see pull requests for other type
 
 ## Getting Started
 
+## Install
+{%= include("install-global") %}
+
 ## Usage
 {%= docs("usage") %}
 
 ## Sub-generators
 {%= docs("sub-generators") %}
 
-## CLI Options
+## Generator options
 {%= docs("options") %}
 
 ## Author
