@@ -17,9 +17,8 @@ describe('verb', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      'docs/README.tmpl.md',
       'package.json',
-//      '.verbrc.yml',
+      '.verbrc.md',
       '.jshintrc',
       '.gitignore',
       '.gitattributes',
@@ -29,11 +28,49 @@ describe('verb', function () {
     helpers.mockPrompt(this.app, {
       projectname: 'verb-project',
       projectdesc: 'The most interesting project in the world > Verb',
-      username: 'jonschlinkert',
-      authorname: 'Jon Schlinkert',
-      authorurl: 'https://github.com/jonschlinkert',
+      username:    'jonschlinkert',
+      authorname:  'Jon Schlinkert',
+      authorurl:   'https://github.com/jonschlinkert',
     });
 
+    this.app.options['skip-install'] = true;
+    this.app.run({}, function () {
+      helpers.assertFile(expected);
+      done();
+    });
+  });
+});
+
+describe('verb', function () {
+  beforeEach(function (done) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+      if (err) {return done(err);}
+
+      this.app = helpers.createGenerator('verb:app', ['../../app']);
+      done();
+    }.bind(this));
+  });
+
+  it('creates expected files', function (done) {
+    var expected = [
+      'docs/README.tmpl.md',
+      'package.json',
+      '.jshintrc',
+      '.gitignore',
+      '.gitattributes',
+      'LICENSE-MIT',
+    ];
+
+
+    helpers.mockPrompt(this.app, {
+      projectname: 'verb-project',
+      projectdesc: 'The most interesting project in the world > Verb',
+      username:    'jonschlinkert',
+      authorname:  'Jon Schlinkert',
+      authorurl:   'https://github.com/jonschlinkert',
+    });
+
+    this.app.options['readme'] = true;
     this.app.options['skip-install'] = true;
     this.app.run({}, function () {
       helpers.assertFile(expected);
@@ -57,7 +94,7 @@ describe('verb:config', function () {
   });
 
   it('creates expected files', function (done) {
-    var expected = ['.verbrc.yml'];
+    var expected = ['.verbrc.md'];
 
     this.app.run({}, function () {
       helpers.assertFile(expected);
@@ -98,6 +135,26 @@ describe('verb:config verbrc', function () {
 
   it('creates expected files', function (done) {
     var expected = ['.verbrc.yml'];
+
+    this.app.run({}, function () {
+      helpers.assertFile(expected);
+      done();
+    });
+  });
+});
+
+describe('verb:config verbrc', function () {
+  beforeEach(function (done) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+      if (err) {return done(err);}
+
+      this.app = helpers.createGenerator('verb:config', ['../../config'], ['md']);
+      done();
+    }.bind(this));
+  });
+
+  it('creates expected files', function (done) {
+    var expected = ['.verbrc.md'];
 
     this.app.run({}, function () {
       helpers.assertFile(expected);
@@ -155,6 +212,48 @@ describe('verb:doc', function () {
 });
 
 
+describe('verb:doc', function () {
+  beforeEach(function (done) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+      if (err) {return done(err);}
+
+      this.app = helpers.createGenerator('verb:doc', ['../../doc'], ['install']);
+      done();
+    }.bind(this));
+  });
+
+  it('creates expected files', function (done) {
+    var expected = ['docs/install.md'];
+
+    this.app.run({}, function () {
+      helpers.assertFile(expected);
+      done();
+    });
+  });
+});
+
+
+describe('verb:doc', function () {
+  beforeEach(function (done) {
+    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+      if (err) {return done(err);}
+
+      this.app = helpers.createGenerator('verb:doc', ['../../doc'], ['install-global']);
+      done();
+    }.bind(this));
+  });
+
+  it('creates expected files', function (done) {
+    var expected = ['docs/install-global.md'];
+
+    this.app.run({}, function () {
+      helpers.assertFile(expected);
+      done();
+    });
+  });
+});
+
+
 describe('verb:readme', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
@@ -175,19 +274,18 @@ describe('verb:readme', function () {
   });
 });
 
-
-describe('verb:vf', function () {
+describe('verb:readme', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {return done(err);}
 
-      this.app = helpers.createGenerator('verb:vf', ['../../vf']);
+      this.app = helpers.createGenerator('verb:readme', ['../../readme'], ['readme']);
       done();
     }.bind(this));
   });
 
   it('creates expected files', function (done) {
-    var expected = ['verbfile.js'];
+    var expected = ['docs/README.tmpl.md'];
 
     this.app.run({}, function () {
       helpers.assertFile(expected);
