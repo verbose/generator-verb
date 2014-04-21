@@ -1,6 +1,6 @@
 {
   "name": "generator-verb",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Kickstart documentation for any project! This is the official Yeoman generator for Verb, a zero-configuration markdown documentation generator that is extremely easy to use and extend.",
   "homepage": "https://github.com/assemble/generator-verb",
   "author": {
@@ -29,17 +29,17 @@
     "npm": ">=1.2.10"
   },
   "dependencies": {
-    "change-case": "~2.0.1",
-    "configstore": "~0.2.3",
+    "change-case": "~2.1.0",
+    "configstore": "~0.3.0",
     "lodash": "~2.4.1",
-    "normalize-pkg": "~0.1.0",
-    "yeoman-generator": "~0.16.0",
-    "verbalize": "~0.1.0",
-    "verb": "~0.2.0",
-    "verb-readme-badges": "0.0.5",
+    "normalize-pkg": "~0.1.5",
+    "verb": "~0.2.2",
+    "verb-boilerplates": "0.0.1",
     "verb-contrib-templates": "0.0.5",
-    "verb-readme-includes": "~0.1.1",
-    "verb-boilerplates": "0.0.1"
+    "verb-readme-badges": "0.0.5",
+    "verb-readme-includes": "~0.1.4",
+    "verbalize": "~0.1.2",
+    "yeoman-generator": "~0.17.0-pre.3"
   },
   "devDependencies": {
     "mocha": "*"
@@ -53,27 +53,21 @@
     "config",
     "configuration",
     "doc",
-    "docs generator",
     "docs",
     "documentation",
     "generator",
     "gh-pages",
     "layout",
-    "markdown docs",
     "markdown",
     "marked",
     "marked.js",
-    "md docs",
     "md",
-    "project docs",
-    "project documentation",
-    "readme generator",
-    "readme template",
+    "project",
     "readme",
-    "repo docs",
     "repo",
     "repository",
     "scaffold",
+    "template",
     "yeoman-generator"
   ]
 }
