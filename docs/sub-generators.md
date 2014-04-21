@@ -1,9 +1,5 @@
 > Sub-generators allow you to add a specific file or files to an existing project.
 
-## yo verb:readme
-
-Add a readme template to `docs/README.tmpl.md` by running `yo verb:readme`.
-
 ## yo verb:config
 
 Add a Verb config file with:
@@ -14,14 +10,17 @@ yo verb:config foo
 
 Where `foo` is one of the following:
 
-* `yo verb:config json`: adds a `.verbrc` file
-* `yo verb:config yaml`: adds a `.verbrc.yml` file
+* `yo verb:config md`: adds a `.verbrc.md` file
+* `yo verb:config yml`: adds a `.verbrc.yml` file
 * `yo verb:config verbfile`: adds a `verbfile.js` file
+
 
 **Pro tips**:
 
 * You can use the default config file, `.verbrc.yml`, by running just `yo verb:config`.
 * You can add a `verbfile.js` by running just `yo verb:vf`
+
+Learn about [Verb config files]().
 
 ## yo verb:doc
 
@@ -55,29 +54,16 @@ Valid `yo verb:boilerplate` arguments are:
 
 **Pro tip**: you can use the default boilerplate, `node`, by running just `yo verb:boilerplate`.
 
-### Contrib boilerplates
-
-Used by the Assemble core team:
-
-* `contribplugin`: Same as `assembleplugin`, but includes info specific to the Assemble core team.
-
-### Custom boilerplates
-
 Visit the docs for [adding custom boilerplates](./docs/custom-boilerplates.md).
+
 
 ## yo verb:data
 
-Verb processes templates using data from your project's package.json. You can extend the data available to your templates with any JSON or YAML files specified in `.verbrc.yml` or in `options.data`.
-
-Add a data file to your project with:
+This subgenerator makes it easy to add data files to extend the context available to your templates (by default Verb processes templates using data from your project's package.json, but you can extend the data available to your templates with any JSON or YAML files by specifying them in a `data` property in `.verbrc.yml` or `.verbrc.yml`).
 
 * `yo verb:data changelog`: adds a `CHANGELOG` file to the root of your project, formatted as valid YAML.
 
-## yo verb:vf
 
-To a `verbfile.js` to your project, run:
+## yo verb:readme
 
-```bash
-yo verb:vf
-```
-Verbfiles are useful for configuring plugins, custom tags, custom source and dest paths, and so on.
+Add a readme template to `docs/README.tmpl.md` by running `yo verb:readme`.

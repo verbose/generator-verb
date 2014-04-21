@@ -2,6 +2,7 @@
 
 _WIP_ These don't work yet.
 
+* `yo verb:boilerplate [foo]` to use a [specific boilerplate](https://github.com/assemble/verb-boilerplates). Verb boilerplates are just sets of documents.
 
 **Picard**
 
