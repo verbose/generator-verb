@@ -11,9 +11,8 @@ var path = require('path');
 var util = require('util');
 var yeoman = require('yeoman-generator');
 var includes = path.dirname(require.resolve('verb-readme-includes'));
-console.log('includes:', includes);
-
 var includeDir = path.join(includes, 'templates');
+
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   if (args.length === 0) {
@@ -21,8 +20,8 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
   }
   yeoman.generators.NamedBase.apply(this, arguments);
 };
-
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
+
 
 VerbGenerator.prototype.files = function files() {
   var self = this;
@@ -33,6 +32,5 @@ VerbGenerator.prototype.files = function files() {
     }
   });
   var name = this.name + '.md';
-
   this.template(path.join(includeDir, name), path.join('docs', name));
 };

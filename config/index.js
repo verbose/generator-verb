@@ -16,7 +16,7 @@ var yeoman = require('yeoman-generator');
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   if (args.length === 0) {
-    args[0] = 'verbrc';
+    args[0] = 'md';
   }
   yeoman.generators.NamedBase.apply(this, arguments);
 };
@@ -26,17 +26,29 @@ util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 VerbGenerator.prototype.files = function files() {
   var app = require('../_lib/utils').app;
 
+
   /**
-   * Verb runtime config
+   * Runtime config
    */
 
-  if(this.name === 'verbrc') {
-    this.template(app('verbrc.yml'), '.verbrc.yml');
+  if(this.name === 'yml' || this.name === 'verbrc') {
+    this.template('verbrc.yml', '.verbrc.yml');
   }
 
-  if(this.name === 'vf' || this.name === 'verbfile') {
-    this.template('_verbfile.js', 'verbfile.js');
+  if(this.name === 'md') {
+    this.copy('verbrc.md', '.verbrc.md');
   }
+
+
+  /**
+   * Verbfile
+   */
+
+
+  if(this.name === 'vf' || this.name === 'verbfile') {
+    this.copy('verbfile.js', 'verbfile.js');
+  }
+
 
   /**
    * Other config files

@@ -16,14 +16,12 @@ var yeoman = require('yeoman-generator');
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   if (args.length === 0) {
-    args[0] = 'README.tmpl';
+    args[0] = 'README';
   }
   yeoman.generators.NamedBase.apply(this, arguments);
 };
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 VerbGenerator.prototype.files = function files() {
-  var app = require('../_lib/utils').app;
-
-  this.copy(app('README.tmpl.md'), 'docs/README.tmpl.md');
+  this.copy('README', 'docs/README.tmpl.md');
 };

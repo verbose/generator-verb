@@ -12,18 +12,17 @@ var util = require('util');
 var yeoman = require('yeoman-generator');
 var boilerplate = path.dirname(require.resolve('verb-boilerplates'));
 
-/**
- * Use a boilerplate to kickstart some documentation for your project.
- */
+
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
-  // Make 'node' the default boilerplate
-  if (args.length === 0) {args[0] = 'node'; }
-
+  // Make the 'node' boilerplate the default
+  if (args.length === 0) {
+    args[0] = 'node';
+  }
   yeoman.generators.NamedBase.apply(this, arguments);
 };
-
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
+
 
 VerbGenerator.prototype.files = function files() {
   if(this.name === 'docs') {

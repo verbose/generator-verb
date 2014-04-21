@@ -34,9 +34,11 @@
     "node": ">=0.8"
   },
   "scripts": {
-    "test": "mocha -R test"
+    "test": "mocha -R spec"
   },
   "devDependencies": {
-    "verb": "~0.2.0"
+    "verb": "~0.2.0",
+    "chai": "~1.9.1",
+    "mocha": "~1.18.2"
   }
 }
