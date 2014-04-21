@@ -35,7 +35,6 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
 
   // Mix methods from change-case into yeoman's Lo-Dash
   this._.mixin(changeCase);
-
   this.appname = changeCase.paramCase(this.appname);
 
   this.readJSON = function() {
@@ -51,10 +50,9 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
   });
 
   this.pkg = this.readJSON(__dirname, '../package.json');
-
   this.username = this.user.git.username || process.env.user || process.env.username || null;
 
-  if (fs.existsSync('package.json')) {
+  if (fs.existsSync('package.json') && (this.options['p'] || this.options['pkg'])) {
     userPkg = normalize.all(this.readJSON('package.json'));
   }
 };
@@ -123,12 +121,6 @@ VerbGenerator.prototype.askFor = function askFor() {
 };
 
 VerbGenerator.prototype.app = function app() {
-  this.mkdir('docs');
-
-  if (!fs.existsSync('docs/README.tmpl.md')) {
-    this.template('README.tmpl.md', 'docs/README.tmpl.md');
-  }
-
   var pkgTemplate = this.readFileAsString(path.join(this.sourceRoot(), './_package.json'));
   var verbDefaultPkg = this.engine(pkgTemplate, this);
 
@@ -154,6 +146,19 @@ VerbGenerator.prototype.app = function app() {
     fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
   } else {
     this.template('_package.json', 'package.json');
+  }
+};
+
+
+VerbGenerator.prototype.readme = function readme() {
+  var config = require('../_lib/utils').config;
+  var readme = require('../_lib/utils').readme;
+
+  if (this.options['readme'] || this.options['r'] && !fs.existsSync('docs/README.tmpl.md')) {
+    this.mkdir('docs');
+    this.copy(readme('README'), 'docs/README.tmpl.md');
+  } else if (!fs.existsSync('.verbrc.md')) {
+    this.copy(config('verbrc.md'), '.verbrc.md');
   }
 };
 
