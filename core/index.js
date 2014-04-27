@@ -14,6 +14,7 @@ var Configstore = require('configstore');
 var normalize = require('normalize-pkg');
 var yeoman = require('yeoman-generator');
 var log = require('verbalize');
+var dir = require('../_lib/utils');
 
 function introductionMessage() {
   console.log(log.bold('  Head\'s up!'));
@@ -42,6 +43,13 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
     return JSON.parse(self.readFileAsString(filepath));
   };
 
+  this.pkg = this.readJSON(__dirname, '../package.json');
+  this.username = this.user.git.username || process.env.user || process.env.username || null;
+
+  if (fs.existsSync('package.json') && (this.options['p'] || this.options['pkg'])) {
+    userPkg = normalize.all(this.readJSON('package.json'));
+  }
+
   this.on('end', function () {
     this.installDependencies({
       skipInstall: this.options['skip-install'] || this.options['s'],
@@ -49,12 +57,17 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
     });
   });
 
-  this.pkg = this.readJSON(__dirname, '../package.json');
-  this.username = this.user.git.username || process.env.user || process.env.username || null;
+  this.hookFor('verb:root', {
+    args: args,
+    options: options,
+    config: config
+  });
 
-  if (fs.existsSync('package.json') && (this.options['p'] || this.options['pkg'])) {
-    userPkg = normalize.all(this.readJSON('package.json'));
-  }
+  this.hookFor('verb:readme', {
+    args: args,
+    options: options,
+    config: config
+  });
 };
 util.inherits(VerbGenerator, yeoman.generators.Base);
 
@@ -102,7 +115,6 @@ VerbGenerator.prototype.askFor = function askFor() {
   });
 
   this.prompt(prompts, function (props) {
-
     verbConfig.set('username', props.username);
     verbConfig.set('author', {
       name: props.authorname,
@@ -120,8 +132,8 @@ VerbGenerator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
-VerbGenerator.prototype.app = function app() {
-  var pkgTemplate = this.readFileAsString(path.join(this.sourceRoot(), './_package.json'));
+VerbGenerator.prototype.pkg = function pkg() {
+  var pkgTemplate = this.readFileAsString(dir.root('_package.json'));
   var verbDefaultPkg = this.engine(pkgTemplate, this);
 
   // If a package.json already exists, let's try to just update the
@@ -145,41 +157,6 @@ VerbGenerator.prototype.app = function app() {
     fs.unlink('package.json');
     fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
   } else {
-    this.template('_package.json', 'package.json');
-  }
-};
-
-
-VerbGenerator.prototype.readme = function readme() {
-  var config = require('../_lib/utils').config;
-  var readme = require('../_lib/utils').readme;
-
-  if (this.options['readme'] || this.options['r'] && !fs.existsSync('docs/README.tmpl.md')) {
-    this.mkdir('docs');
-    this.copy(readme('README'), 'docs/README.tmpl.md');
-  } else if (!fs.existsSync('.verbrc.md')) {
-    this.copy(config('verbrc.md'), '.verbrc.md');
-  }
-};
-
-VerbGenerator.prototype.jshintrc = function jshintrc() {
-  if (!fs.existsSync('.jshintrc')) {
-    this.copy('jshintrc', '.jshintrc');
-  }
-};
-
-VerbGenerator.prototype.git = function git() {
-  if (!fs.existsSync('.gitignore')) {
-    this.copy('gitignore', '.gitignore');
-  }
-
-  if (!fs.existsSync('.gitattributes')) {
-    this.copy('gitattributes', '.gitattributes');
-  }
-};
-
-VerbGenerator.prototype.license = function license() {
-  if (!fs.existsSync('LICENSE-MIT')) {
-    this.template('LICENSE-MIT');
+    this.template(dir.root('_package.json'), 'package.json');
   }
 };

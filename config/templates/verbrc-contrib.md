@@ -1,4 +1,4 @@
-# {%= name %} {%= badge("fury") %}
+# {%= name %} {%= badge('fury') %}
 
 > {%= description %}
 
@@ -6,7 +6,7 @@
 {%= include("install") %}
 
 ## Author
- * {%= author.name %}
+{%= contrib("authors") %}
 
 ## License
 {%= copyright() %}
