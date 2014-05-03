@@ -42,6 +42,7 @@
     "yeoman-generator": "~0.17.0-pre.3"
   },
   "devDependencies": {
+    "chai": "~1.9.1",
     "mocha": "*"
   },
   "peerDependencies": {
