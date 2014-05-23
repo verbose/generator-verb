@@ -1,5 +1,5 @@
 /*
- * generator-verb <https://github.com/jonschlinkert/generator-verb>
+ * generator-verb <https://github.com/assemble/generator-verb>
  *
  * Copyright (c) 2014 Jon Schlinkert, contributors.
  * Licensed under the MIT license.
@@ -16,11 +16,19 @@ var VerbGenerator = module.exports = function VerbGenerator(args) {
   if (args.length === 0) {
     args[0] = 'root';
   }
-  yeoman.generators.NamedBase.apply(this, arguments);
+  var self = this;
+  yeoman.generators.Base.apply(this, arguments);
 
-  console.log(this)
+  this.authorname = self.options.authorname;
+  this.authorurl = self.options.authorurl;
+  this.username = self.options.username;
+
+  this.projectname = self.options.projectname;
+  this.projectdesc = self.options.projectdesc;
 };
+
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
+
 
 VerbGenerator.prototype.jshintrc = function jshintrc() {
   if (!fs.existsSync('.jshintrc')) {

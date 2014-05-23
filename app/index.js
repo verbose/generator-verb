@@ -13,12 +13,14 @@ var yeoman = require('yeoman-generator');
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
+
   this.hookFor('verb:core', {
     args: args,
     options: options,
     config: config
   });
 };
+
 util.inherits(VerbGenerator, yeoman.generators.Base);
 
 

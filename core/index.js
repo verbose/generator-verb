@@ -31,8 +31,9 @@ var verbConfig = new Configstore('generator-verb');
 var userPkg = {};
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
-  yeoman.generators.Base.apply(this, arguments);
   var self = this;
+
+  yeoman.generators.Base.apply(this, arguments);
 
   // Mix methods from change-case into yeoman's Lo-Dash
   this._.mixin(changeCase);
@@ -46,8 +47,11 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
   this.pkg = this.readJSON(__dirname, '../package.json');
   this.username = this.user.git.username || process.env.user || process.env.username || null;
 
-  if (fs.existsSync('package.json') && (this.options['p'] || this.options['pkg'])) {
-    userPkg = normalize.all(this.readJSON('package.json'));
+  if (fs.existsSync('package.json')) {
+    userPkg = this.readJSON('package.json');
+  }
+  if (this.options['p'] || this.options['pkg']) {
+    userPkg = normalize.all(userPkg);
   }
 
   this.on('end', function () {
@@ -93,7 +97,7 @@ VerbGenerator.prototype.askFor = function askFor() {
   prompts.push({
     name: 'projectdesc',
     message: 'Want to add a description?',
-    default: userPkg.description || 'The most interesting project in the world > Verb'
+    default: userPkg.description ? userPkg.description : 'The most interesting project in the world > Verb'
   });
 
   prompts.push({
@@ -131,6 +135,12 @@ VerbGenerator.prototype.askFor = function askFor() {
     cb();
   }.bind(this));
 };
+
+
+VerbGenerator.prototype.tests = function tests() {
+  this.directory('test', 'test', true);
+};
+
 
 VerbGenerator.prototype.pkg = function pkg() {
   var pkgTemplate = this.readFileAsString(dir.root('_package.json'));
