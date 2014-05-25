@@ -39,7 +39,7 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
   // Mix methods from change-case into yeoman's Lo-Dash
   this._.mixin(changeCase);
   this._.mixin({namify: namify});
-  this.appname = namify(this.appname);
+  this.appname = changeCase.paramCase(this.appname);
 
   this.readJSON = function() {
     var filepath = path.join.apply(path, arguments);
