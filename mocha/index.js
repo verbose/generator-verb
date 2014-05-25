@@ -9,12 +9,15 @@
 
 var util = require('util');
 var yeoman = require('yeoman-generator');
+var namify = require('namify');
+
 
 var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
   if (args.length === 0) {
     args[0] = 'mocha';
   }
   yeoman.generators.NamedBase.apply(this, arguments);
+  this._.mixin({namify: namify});
 };
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 

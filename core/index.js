@@ -12,6 +12,7 @@ var util = require('util');
 var changeCase = require('change-case');
 var Configstore = require('configstore');
 var normalize = require('normalize-pkg');
+var namify = require('namify');
 var yeoman = require('yeoman-generator');
 var log = require('verbalize');
 var dir = require('../_lib/utils');
@@ -37,7 +38,8 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
 
   // Mix methods from change-case into yeoman's Lo-Dash
   this._.mixin(changeCase);
-  this.appname = changeCase.paramCase(this.appname);
+  this._.mixin({namify: namify});
+  this.appname = namify(this.appname);
 
   this.readJSON = function() {
     var filepath = path.join.apply(path, arguments);
