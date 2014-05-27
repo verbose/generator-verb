@@ -1,7 +1,7 @@
 /*!
- * <%= appname %> <https://github.com/<%= username %>/<%= appname %>
+ * <%= appname %>
  *
- * Copyright (c) 2014 <%= authorname %>, contributors
+ * Copyright (c) 2014 <%= appname %>, contributors
  * Licensed under the MIT License (MIT)
  */
 

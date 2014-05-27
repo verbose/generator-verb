@@ -17,6 +17,7 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
     args[0] = 'mocha';
   }
   yeoman.generators.NamedBase.apply(this, arguments);
+  console.log(this);
   this._.mixin({namify: namify});
 };
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
