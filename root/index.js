@@ -19,12 +19,12 @@ var VerbGenerator = module.exports = function VerbGenerator(args) {
   var self = this;
   yeoman.generators.Base.apply(this, arguments);
 
-  this.authorname = self.options.authorname;
-  this.authorurl = self.options.authorurl;
-  this.username = self.options.username;
+  this.authorname = this.authorname || self.options.authorname;
+  this.authorurl = this.authorurl || self.options.authorurl;
+  this.username = this.username || self.options.username;
 
-  this.projectname = self.options.projectname;
-  this.projectdesc = self.options.projectdesc;
+  this.projectname = this.projectname || self.options.projectname;
+  this.projectdesc = this.projectdesc || self.options.projectdesc;
 };
 
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);

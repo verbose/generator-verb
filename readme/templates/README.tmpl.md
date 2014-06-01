@@ -6,7 +6,7 @@
 {%= include("install") %}
 
 ## Author
-{%= author.name %}
+{%= include("author") %}
 
 ## License
 {%= copyright() %}
