@@ -143,6 +143,11 @@ VerbGenerator.prototype.tests = function tests() {
   this.directory('test', 'test', true);
 };
 
+VerbGenerator.prototype.index = function index() {
+  if (!fs.existsSync('index.js')) {
+    this.template('index.js', 'index.js');
+  }
+};
 
 VerbGenerator.prototype.pkg = function pkg() {
   var pkgTemplate = this.readFileAsString(dir.root('_package.json'));
