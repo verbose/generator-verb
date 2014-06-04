@@ -29,8 +29,11 @@
     "npm": ">=1.2.10"
   },
   "dependencies": {
+    "bower": "^1.3.4",
     "change-case": "^2.1.1",
     "configstore": "^0.3.0",
+    "generator-tag": "^0.1.7",
+    "grunt-cli": "^0.1.13",
     "namify": "^0.1.3",
     "normalize-pkg": "^0.1.5",
     "verb-boilerplates": "^0.1.0",
@@ -38,7 +41,8 @@
     "verb-readme-badges": "0.0.6",
     "verb-readme-includes": "^0.1.14",
     "verbalize": "^0.1.2",
-    "yeoman-generator": "^0.17.0"
+    "yeoman-generator": "^0.17.0",
+    "yo": "^1.1.2"
   },
   "devDependencies": {
     "chai": "~1.9.1",
