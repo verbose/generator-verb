@@ -1,8 +1,8 @@
 /*!
- * <%= appname %>
+ * <%= _.slugify(appname) %> <https://github.com/<%= username %>/<%= _.slugify(appname) %>>
  *
- * Copyright (c) 2014 <%= appname %>, contributors
- * Licensed under the MIT License (MIT)
+ * Copyright (c) 2014 <%= authorname %>, contributors.
+ * Licensed under the MIT License
  */
 
 var expect = require('chai').expect;

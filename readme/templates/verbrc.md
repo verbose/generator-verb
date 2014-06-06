@@ -1,3 +1,4 @@
+<!-- `.verbrc.md` is a README.md template and documentation config file for Verb. See https://github.com/assemble/verb for more info. -->
 # {%= name %} {%= badge("fury") %}
 
 > {%= description %}
@@ -6,7 +7,7 @@
 {%= include("install") %}
 
 ## Author
-{%= contrib("authors") %}
+{%= include("author") %}
 
 ## License
 {%= copyright() %}

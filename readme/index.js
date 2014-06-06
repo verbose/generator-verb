@@ -17,27 +17,13 @@ var VerbGenerator = module.exports = function VerbGenerator(args, config, option
   if (args.length === 0) {
     args[0] = 'verbrc';
   }
-
-  if (config.contrib === true) {
-    args[0] = 'contrib';
-  }
-
   yeoman.generators.NamedBase.apply(this, arguments);
 };
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 
 VerbGenerator.prototype.files = function files() {
-  if (this.name === 'readme') {
-    this.mkdir('docs');
-    this.copy(dir.readme('README.tmpl.md'), 'docs/README.tmpl.md');
-  }
-
   if (this.name === 'verbrc') {
     this.copy(dir.config('verbrc.md'), '.verbrc.md');
-  }
-
-  if (this.name === 'contrib') {
-    this.copy(dir.config('verbrc-contrib.md'), '.verbrc.md');
   }
 };

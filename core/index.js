@@ -9,6 +9,7 @@
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
+var exec = require('child_process').exec;
 var changeCase = require('change-case');
 var Configstore = require('configstore');
 var normalize = require('normalize-pkg');
