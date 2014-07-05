@@ -10,7 +10,8 @@
 var fs = require('fs');
 var util = require('util');
 var yeoman = require('yeoman-generator');
-
+var Configstore = require('configstore');
+var verbConfig = new Configstore('generator-verb');
 
 var VerbGenerator = module.exports = function VerbGenerator(args) {
   if (args.length === 0) {
@@ -19,12 +20,12 @@ var VerbGenerator = module.exports = function VerbGenerator(args) {
   var self = this;
   yeoman.generators.Base.apply(this, arguments);
 
-  this.authorname = this.authorname || self.options.authorname;
-  this.authorurl = this.authorurl || self.options.authorurl;
-  this.username = this.username || self.options.username;
+  this.authorname = this.authorname || verbConfig.authorname || this.options.authorname;
+  this.authorurl = this.authorurl || this.options.authorurl;
+  this.username = this.username || this.options.username;
 
-  this.projectname = this.projectname || self.options.projectname;
-  this.projectdesc = this.projectdesc || self.options.projectdesc;
+  this.projectname = this.projectname || this.options.projectname;
+  this.projectdesc = this.projectdesc || this.options.projectdesc;
 };
 
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
@@ -43,12 +44,6 @@ VerbGenerator.prototype.git = function git() {
 
   if (!fs.existsSync('.gitattributes')) {
     this.copy('gitattributes', '.gitattributes');
-  }
-};
-
-VerbGenerator.prototype.license = function license() {
-  if (!fs.existsSync('LICENSE-MIT')) {
-    this.template('LICENSE-MIT');
   }
 };
 

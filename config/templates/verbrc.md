@@ -1,10 +1,23 @@
-<!-- `.verbrc.md` is a README.md template and documentation config file for Verb. See https://github.com/assemble/verb for more info. -->
+---
+tags: ['verb-tag-jscomments']
+---
 # {%= name %} {%= badge("fury") %}
 
 > {%= description %}
 
 ## Install
 {%= include("install") %}
+
+## Usage
+
+```js
+var <%= _.namify(appname) %> = require('{%= name %}');
+console.log(<%= _.namify(appname) %>('abc'));
+//=> ['a', 'b', 'c'];
+```
+
+## API
+{%= jscomments("index.js") %}
 
 ## Author
 {%= include("author") %}

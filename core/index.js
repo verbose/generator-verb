@@ -67,7 +67,7 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
   this.hookFor('verb:root', {
     args: args,
     options: options,
-    config: config
+    config: this._.extend(config, {userPkg: userPkg})
   });
 
   this.hookFor('verb:readme', {
@@ -147,6 +147,12 @@ VerbGenerator.prototype.tests = function tests() {
 VerbGenerator.prototype.index = function index() {
   if (!fs.existsSync('index.js')) {
     this.template('index.js', 'index.js');
+  }
+};
+
+VerbGenerator.prototype.license = function license() {
+  if (!fs.existsSync('LICENSE-MIT')) {
+    this.template('LICENSE-MIT');
   }
 };
 

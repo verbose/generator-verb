@@ -8,6 +8,7 @@
 *.orig
 *.out
 *.pid
+*.rar
 *.rej
 *.seed
 *.swo
@@ -18,11 +19,21 @@
 *~
 .ruby-version
 lib-cov
+npm-debug.log
+
+# Always-ignore dirs
+/bower_components/
+/node_modules/
+/temp/
+/tmp/
+/vendor/
+_gh_pages
 
 # OS or Editor folders
 *.esproj
-*.sublime-project
-*.sublime-workspace
+*.komodoproject
+.komodotools
+*.sublime-*
 ._*
 .cache
 .DS_Store
@@ -33,21 +44,9 @@ lib-cov
 nbproject
 Thumbs.db
 
-# Komodo
-*.komodoproject
-.komodotools
-
 # grunt-html-validation
 validation-status.json
 validation-report.json
 
-# Vendor packages
-node_modules
-bower_components
-vendor
-
-# General folders and files to ignore
-_gh_pages
-tmp
-temp
+# misc
 TODO.md
