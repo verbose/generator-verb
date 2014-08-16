@@ -6,7 +6,7 @@ tags: ['verb-tag-jscomments']
 > {%= description %}
 
 ## Install
-{%= include("install-npm", {save: 'true'}) %}
+{%= include("install") %}
 
 ## Usage
 

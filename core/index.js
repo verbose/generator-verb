@@ -65,16 +65,13 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
   });
 
   this.hookFor('verb:root', {
-    args: args,
-    options: options,
-    config: this._.extend(config, {userPkg: userPkg})
-  });
-
-  this.hookFor('verb:readme', {
+    as: 'verb',
     args: args,
     options: options,
     config: config
   });
+
+  this.composeWith('verb:readme', { options: { invoked: true } });
 };
 util.inherits(VerbGenerator, yeoman.generators.Base);
 
@@ -121,6 +118,13 @@ VerbGenerator.prototype.askFor = function askFor() {
     default: verbConfig.get('username') || this.username
   });
 
+  prompts.push({
+    type: 'confirm',
+    name: 'jscomments',
+    message: 'Want to use the jscomments() tag to generate API docs from code comments?',
+    default: true
+  });
+
   this.prompt(prompts, function (props) {
     verbConfig.set('username', props.username);
     verbConfig.set('author', {
@@ -132,6 +136,7 @@ VerbGenerator.prototype.askFor = function askFor() {
     this.authorurl = verbConfig.get('author').url;
     this.username = verbConfig.get('username');
 
+    this.jscomments = props.jscomments;
     this.projectname = props.projectname;
     this.projectdesc = props.projectdesc;
 
