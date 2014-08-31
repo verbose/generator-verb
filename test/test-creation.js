@@ -53,7 +53,7 @@ describe('verb', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      'docs/README.tmpl.md',
+      '.verbrc.md',
       'package.json',
       '.jshintrc',
       '.gitignore',
@@ -83,209 +83,18 @@ describe('verb', function () {
  * Config
  */
 
-describe('verb:config', function () {
+describe('verb:include', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {return done(err);}
 
-      this.app = helpers.createGenerator('verb:config', ['../../config']);
+      this.app = helpers.createGenerator('verb:include', ['../../include'], 'authors.md');
       done();
     }.bind(this));
   });
 
   it('creates expected files', function (done) {
-    var expected = ['.verbrc.md'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-describe('verb:config verbfile', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:config', ['../../config'], ['verbfile']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = ['verbfile.js'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-describe('verb:config verbrc', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:config', ['../../config'], ['verbrc']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = ['.verbrc.yml'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-describe('verb:config verbrc', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:config', ['../../config'], ['md']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = ['.verbrc.md'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-/**
- * Data
- */
-
-describe('verb:data', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:data', ['../../data'], ['changelog']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = ['CHANGELOG'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-/**
- * doc
- */
-
-describe('verb:doc', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:doc', ['../../doc'], ['footer']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = ['docs/footer.md'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-
-describe('verb:doc', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:doc', ['../../doc'], ['install']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = ['docs/install.md'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-
-describe('verb:doc', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:doc', ['../../doc'], ['install-global']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = ['docs/install-global.md'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-
-describe('verb:readme', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:readme', ['../../readme']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = ['docs/README.tmpl.md'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-describe('verb:readme', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:readme', ['../../readme'], ['readme']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = ['docs/README.tmpl.md'];
+    var expected = [process.cwd() + '/docs/authors.md'];
 
     this.app.run({}, function () {
       helpers.assertFile(expected);

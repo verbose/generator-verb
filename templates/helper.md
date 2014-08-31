@@ -5,6 +5,12 @@
 ## Install
 {%= include("install", {save: '--save-dev'}) %}
 
+## Run tests
+
+```bash
+npm test
+```
+
 ## Usage
 
 ```js

@@ -28,10 +28,9 @@ VerbGenerator.prototype.files = function files() {
 
   this.conflicter.resolve(function (err) {
     if(self.name === 'docs') {
-      self.log.error('"docs" is not a valid file name', err);
+      self.log.error('"docs" is the name of a directory, please specify a valid file name', err);
     }
   });
 
-  var name = this.name + '.md';
-  this.template(path.join(includesDir, name), path.join('docs', name));
+  this.template(path.join(includesDir, this.name), path.join('docs', this.name));
 };

@@ -8,6 +8,12 @@ tags: ['verb-tag-jscomments']
 ## Install
 {%= include("install") %}
 
+## Run tests
+
+```bash
+npm test
+```
+
 ## Usage
 
 ```js

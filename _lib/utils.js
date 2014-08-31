@@ -23,3 +23,7 @@ exports.readme = function(filepath) {
 exports.root = function(filepath) {
   return path.join(__dirname, '../root/templates', filepath);
 };
+
+exports.templates = function(filepath) {
+  return path.join(__dirname, '../templates', filepath);
+};

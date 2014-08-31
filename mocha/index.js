@@ -12,7 +12,6 @@ var path = require('path');
 var url = require('url');
 var util = require('util');
 var yeoman = require('yeoman-generator');
-var namify = require('namify');
 var pkg = {};
 
 
@@ -22,13 +21,18 @@ var VerbGenerator = module.exports = function VerbGenerator(args, options, confi
   }
   yeoman.generators.NamedBase.apply(this, arguments);
   var self = this;
-  this._.mixin({namify: namify});
+
+  var fn = {};
+  fn.shortname = require('app-name');
+  fn.namify = require('namify');
+  this._.mixin(fn);
 
   this.readJSON = function() {
     var filepath = path.join.apply(path, arguments);
     return JSON.parse(self.readFileAsString(filepath));
   };
 };
+
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 
