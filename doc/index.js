@@ -11,10 +11,9 @@ var path = require('path');
 var util = require('util');
 var yeoman = require('yeoman-generator');
 var includes = path.dirname(require.resolve('verb-readme-includes'));
-var includesDir = path.join(includes, 'templates');
 
 
-var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
+var VerbGenerator = module.exports = function VerbGenerator(args) {
   if (args.length === 0) {
     args[0] = 'install';
   }
@@ -24,6 +23,7 @@ util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 
 VerbGenerator.prototype.files = function files() {
+  var includesDir = path.join(includes, 'templates');
   var self = this;
 
   this.conflicter.resolve(function (err) {
@@ -31,6 +31,5 @@ VerbGenerator.prototype.files = function files() {
       self.log.error('"docs" is the name of a directory, please specify a valid file name', err);
     }
   });
-
   this.template(path.join(includesDir, this.name), path.join('docs', this.name));
 };

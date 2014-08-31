@@ -9,15 +9,12 @@
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
-var exec = require('child_process').exec;
 var changeCase = require('change-case');
 var Configstore = require('configstore');
 var normalize = require('normalize-pkg');
-var unique = require('unique-words');
 var namify = require('namify');
 var yeoman = require('yeoman-generator');
 var log = require('verbalize');
-var dir = require('../_lib/utils');
 
 function introductionMessage() {
   console.log(log.bold('  Head\'s up!'));
@@ -33,7 +30,7 @@ log.runner = 'generator-verb';
 var verbConfig = new Configstore('generator-verb');
 var userPkg = {};
 
-var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
+var VerbGenerator = module.exports = function VerbGenerator() {
   var self = this;
 
   yeoman.generators.Base.apply(this, arguments);
@@ -81,7 +78,6 @@ VerbGenerator.prototype.askFor = function askFor() {
   var author = verbConfig.get('author') || {};
   // var files = glob.sync(path.join(__dirname, 'templates/*'));
 
-
   prompts.push({
     name: 'projectname',
     message: 'What is the name of the project?',
@@ -126,7 +122,6 @@ VerbGenerator.prototype.askFor = function askFor() {
   //   choices : files
   // });
 
-
   this.prompt(prompts, function (props) {
     verbConfig.set('username', props.username);
     verbConfig.set('author', {
@@ -145,6 +140,7 @@ VerbGenerator.prototype.askFor = function askFor() {
     cb();
   }.bind(this));
 };
+
 
 /**
  * Why do `fs.existsSync` when collision detection is
@@ -194,38 +190,37 @@ VerbGenerator.prototype.travis = function travis() {
 
 VerbGenerator.prototype.verbrc = function verbrc() {
   if (this.jscomments) {
-    this.template(dir.templates('verbrc-jscomments.md'), '.verbrc.md');
+    this.template('verbrc-jscomments.md', '.verbrc.md');
   } else {
-    this.template(dir.templates('verbrc.md'), '.verbrc.md');
+    this.template('verbrc.md', '.verbrc.md');
   }
 };
 
-
 VerbGenerator.prototype.pkg = function pkg() {
-  var pkgTemplate = this.readFileAsString(dir.app('_package.json'));
+  var pkgTemplate = this.readFileAsString(__dirname + '/templates/_package.json');
   var verbDefaultPkg = this.engine(pkgTemplate, this);
 
   // If a package.json already exists, let's try to just update the
   // values we asked about, and leave other data alone.
   if (fs.existsSync('package.json')) {
-    var pkg = this.readJSON('package.json');
-    pkg.devDependencies = pkg.devDependencies || {};
+    var _pkg = this.readJSON('package.json');
+    _pkg.devDependencies = _pkg.devDependencies || {};
 
     // Add any missing properties to the existing package.json
-    this._.defaults(pkg, JSON.parse(verbDefaultPkg));
+    this._.defaults(_pkg, JSON.parse(verbDefaultPkg));
 
     // Update some values we asked the user to provide.
-    this._.extend(pkg.name, this.projectname);
-    this._.extend(pkg.description, this.projectdesc);
-    this._.extend(pkg.author.name, this.authorname);
-    this._.extend(pkg.author.url, this.authorurl);
+    this._.extend(_pkg.name, this.projectname);
+    this._.extend(_pkg.description, this.projectdesc);
+    this._.extend(_pkg.author.name, this.authorname);
+    this._.extend(_pkg.author.url, this.authorurl);
 
     // Add `verb` to devDependencies. That's why we're here, right?
-    this._.extend(pkg.devDependencies, JSON.parse(verbDefaultPkg).devDependencies);
+    this._.extend(_pkg.devDependencies, JSON.parse(verbDefaultPkg).devDependencies);
 
     fs.unlink('package.json');
-    fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+    fs.writeFileSync('package.json', JSON.stringify(_pkg, null, 2));
   } else {
-    this.template(dir.app('_package.json'), 'package.json');
+    this.template('_package.json', 'package.json');
   }
 };

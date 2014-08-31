@@ -8,11 +8,12 @@
 'use strict';
 
 var assert = require('assert');
-var <%= _.namify(appname) %> = require('../');
+var <%= _.namify(appname) %> = require('..');
 
 describe('<%= _.namify(appname) %>', function () {
   it('should <%= appname %>', function () {
     var actual = <%= _.namify(appname) %>('foo');
-    assert(actual);
+    actual.should.equal('foo');
+    actual.should.have.property('bar');
   });
 });

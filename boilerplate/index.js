@@ -14,20 +14,18 @@ var yeoman = require('yeoman-generator');
 var boilerplate = path.dirname(require.resolve('verb-boilerplates'));
 
 
-var VerbGenerator = module.exports = function VerbGenerator(args, options, config) {
+var VerbGenerator = module.exports = function VerbGenerator(args) {
   // Use the 'node' boilerplate the default
   if (args.length === 0) {
     args[0] = 'node';
   }
   yeoman.generators.NamedBase.apply(this, arguments);
 };
-
 util.inherits(VerbGenerator, yeoman.generators.NamedBase);
 
 
 VerbGenerator.prototype.files = function files() {
   var dir = path.join(boilerplate, this.name);
-  var self = this;
 
   var fn = {};
   fn.shortname = require('app-name');

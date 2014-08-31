@@ -61,7 +61,6 @@ describe('verb', function () {
       'LICENSE-MIT',
     ];
 
-
     helpers.mockPrompt(this.app, {
       projectname: 'verb-project',
       projectdesc: 'The most interesting project in the world > Verb',
@@ -83,12 +82,12 @@ describe('verb', function () {
  * Config
  */
 
-describe('verb:include', function () {
+describe('verb:doc', function () {
   beforeEach(function (done) {
     helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
       if (err) {return done(err);}
 
-      this.app = helpers.createGenerator('verb:include', ['../../include'], 'authors.md');
+      this.app = helpers.createGenerator('verb:doc', ['../../doc'], 'authors.md');
       done();
     }.bind(this));
   });
