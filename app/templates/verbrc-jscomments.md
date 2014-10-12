@@ -25,6 +25,9 @@ console.log(<%= _.namify(appname) %>('abc'));
 ## API
 {%= jscomments("index.js") %}
 
+## Contributing
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue][issues].
+
 ## Author
 {%= include("author") %}
 
@@ -35,3 +38,5 @@ console.log(<%= _.namify(appname) %>('abc'));
 ***
 
 {%= include("footer") %}
+
+[issues]: https://github.com/<%= username %>/<%= _.slugify(appname) %>/issues
