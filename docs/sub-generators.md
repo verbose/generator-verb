@@ -34,6 +34,11 @@ Valid `yo verb:boilerplate` arguments are:
 
 Visit the docs for [adding custom boilerplates](./docs/custom-boilerplates.md).
 
-## yo verb:mocha
+### yo verb:mocha
 
 Add a `test/test.js` file with a starter mocha test.
+
+### yo verb:test
+
+Like `yo verb:mocha` but more basic. Just adds a `test.js` file in the root directory.
+

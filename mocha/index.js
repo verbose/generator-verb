@@ -47,6 +47,10 @@ VerbGenerator.prototype.testFiles = function testFiles() {
 
   if(this.name === 'mocha') {
     this.template('mocha.opts', 'test/mocha.opts');
-    this.template('test.js', 'test/test.js');
+    this.template('mocha.js', 'test/test.js');
+  }
+
+  if(this.name === 'test') {
+    this.template('test.js', 'test.js');
   }
 };

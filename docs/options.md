@@ -5,3 +5,4 @@ Skips the automatic execution of `bower` and `npm` after scaffolding has finishe
 Command: `-w` | `--skip-welcome-message`
 
 Skips the Yeoman welcome message.
+

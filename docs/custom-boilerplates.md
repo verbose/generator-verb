@@ -62,3 +62,4 @@ If everything is setup properly, running `bower istall` at the command line shou
 
 
 _Suggestions or pull requests for improving this workflow or the project in general or welcome!_
+
