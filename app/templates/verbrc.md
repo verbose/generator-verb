@@ -20,7 +20,7 @@ console.log(<%= _.namify(appname) %>('abc'));
 ```
 
 ## Contributing
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue][issues].
+Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue]({%= bugs.url %})
 
 ## Author
 {%= include("author") %}
@@ -32,5 +32,3 @@ Pull requests and stars are always welcome. For bugs and feature requests, [plea
 ***
 
 {%= include("footer") %}
-
-[issues]: https://github.com/<%= username %>/<%= _.slugify(appname) %>/issues
