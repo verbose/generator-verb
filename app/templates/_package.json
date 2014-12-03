@@ -1,25 +1,23 @@
 {
-  "name": "<%= _.slugify(appname) %>",
+  "name": "<%= appname %>",
   "description": "<%= projectdesc %>",
   "version": "0.1.0",
-  "homepage": "https://github.com/<%= username %>/<%= _.slugify(appname) %>",
+  "homepage": "https://github.com/<%= username %>/<%= appname %>",
   "author": {
     "name": "<%= authorname %>",
     "url": "<%= authorurl %>"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/<%= username %>/<%= _.slugify(appname) %>.git"
+    "url": "git://github.com/<%= username %>/<%= appname %>.git"
   },
   "bugs": {
-    "url": "https://github.com/<%= username %>/<%= _.slugify(appname) %>/issues"
+    "url": "https://github.com/<%= username %>/<%= appname %>/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/<%= username %>/<%= _.slugify(appname) %>/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/<%= username %>/<%= appname %>/blob/master/LICENSE-MIT"
+  },
   "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
@@ -27,18 +25,9 @@
   "scripts": {
     "test": "mocha -R spec"
   },
-  "devDependencies": {<% if (jscomments) { %>
-    "verb-tag-jscomments": ">= 0.2.0",<% } %>
-    "verb": ">= 0.2.6",
-    "mocha": "*"
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
   },
-  "keywords": [
-    "docs",
-    "documentation",
-    "generate",
-    "generator",
-    "markdown",
-    "templates",
-    "verb"
-  ]
+  "keywords": []
 }

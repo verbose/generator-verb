@@ -18,7 +18,7 @@ describe('verb', function () {
   it('creates expected files', function (done) {
     var expected = [
       'package.json',
-      '.verbrc.md',
+      '.verb.md',
       '.jshintrc',
       '.gitignore',
       '.gitattributes',
@@ -53,7 +53,7 @@ describe('verb', function () {
 
   it('creates expected files', function (done) {
     var expected = [
-      '.verbrc.md',
+      '.verb.md',
       'package.json',
       '.jshintrc',
       '.gitignore',

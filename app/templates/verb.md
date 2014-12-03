@@ -3,7 +3,7 @@
 > {%= description %}
 
 ## Install
-{%= include("install") %}
+{%= include("install-npm", {save: true}) %}
 
 ## Run tests
 
@@ -15,9 +15,10 @@ npm test
 
 ```js
 var <%= _.namify(appname) %> = require('{%= name %}');
-console.log(<%= _.namify(appname) %>('abc'));
-//=> ['a', 'b', 'c'];
 ```
+
+## API
+{%= comments("index.js") %}
 
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue]({%= bugs.url %})
