@@ -9,11 +9,12 @@
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
+var glob = require('glob');
 var changeCase = require('change-case');
 var Configstore = require('configstore');
 var normalize = require('normalize-pkg');
-var namify = require('namify');
 var yeoman = require('yeoman-generator');
+var namify = require('namify');
 var log = require('verbalize');
 
 function introductionMessage() {
@@ -30,6 +31,7 @@ log.runner = 'generator-verb';
 var verbConfig = new Configstore('generator-verb');
 var userPkg = {};
 
+
 var VerbGenerator = module.exports = function VerbGenerator() {
   var self = this;
 
@@ -45,7 +47,6 @@ var VerbGenerator = module.exports = function VerbGenerator() {
     return JSON.parse(self.readFileAsString(filepath));
   };
 
-  this.pkg = this.readJSON(__dirname, '../package.json');
   this.username = this.user.git.username || process.env.user || process.env.username || null;
 
   if (fs.existsSync('package.json')) {
@@ -62,6 +63,7 @@ var VerbGenerator = module.exports = function VerbGenerator() {
     });
   });
 };
+
 util.inherits(VerbGenerator, yeoman.generators.Base);
 
 
@@ -76,51 +78,36 @@ VerbGenerator.prototype.askFor = function askFor() {
   }
 
   var author = verbConfig.get('author') || {};
-  // var files = glob.sync(path.join(__dirname, 'templates/*'));
 
   prompts.push({
     name: 'projectname',
-    message: 'What is the name of the project?',
+    message: 'Project name?',
     default: userPkg.name ? userPkg.name : this.appname
   });
 
   prompts.push({
     name: 'projectdesc',
-    message: 'Want to add a description?',
+    message: 'Description?',
     default: userPkg.description ? userPkg.description : 'The most interesting project in the world > Verb'
   });
 
   prompts.push({
     name: 'authorname',
-    message: 'What is the author\'s name?',
+    message: 'Author\'s name?',
     default: author.name || ((userPkg.author && userPkg.author.name) ? userPkg.author.name : this.username)
   });
 
   prompts.push({
     name: 'authorurl',
-    message: 'What is the author\'s URL?',
+    message: 'Author\'s URL?',
     default: author.url || ((userPkg.author && userPkg.author.url) ? userPkg.author.url : ('https://github.com/' + this.username))
   });
 
   prompts.push({
     name: 'username',
-    message: 'If pushed to GitHub, what will the username/org be?',
+    message: 'GitHub username/org?',
     default: verbConfig.get('username') || this.username
   });
-
-  prompts.push({
-    type: 'confirm',
-    name: 'jscomments',
-    message: 'Want to use the jscomments() tag to generate API docs from code comments?',
-    default: true
-  });
-
-  // prompts.push({
-  //   type    : 'checkbox',
-  //   name    : 'files',
-  //   message : 'Which files do you want to include?',
-  //   choices : files
-  // });
 
   this.prompt(prompts, function (props) {
     verbConfig.set('username', props.username);
@@ -133,7 +120,6 @@ VerbGenerator.prototype.askFor = function askFor() {
     this.authorurl = verbConfig.get('author').url;
     this.username = verbConfig.get('username');
 
-    this.jscomments = props.jscomments;
     this.projectname = props.projectname;
     this.projectdesc = props.projectdesc;
 
@@ -183,17 +169,46 @@ VerbGenerator.prototype.tests = function tests() {
 };
 
 VerbGenerator.prototype.travis = function travis() {
-  if(!fs.existsSync('.travis.yml')) {
+  if(this.options['travis']) {
     this.copy('travis.yml', '.travis.yml');
   }
 };
 
-VerbGenerator.prototype.verbrc = function verbrc() {
-  if (this.jscomments) {
-    this.template('verbrc-jscomments.md', '.verbrc.md');
-  } else {
-    this.template('verbrc.md', '.verbrc.md');
+function mapper(patterns, cwd) {
+  var files = glob.sync(patterns, {cwd: cwd ||__dirname});
+  return files.reduce(function (acc, fp) {
+    var name = path.basename(fp, path.extname(fp));
+    acc[name] = fp.replace(/^[\\\/]*templates[\\\/]*/, '');
+    return acc;
+  }, {});
+}
+
+VerbGenerator.prototype.verb = function verb() {
+  var verbfile = 'verb.md';
+
+  var files = mapper('templates/verbfiles/*.md');
+  for (var key in files) {
+    if (this.options.hasOwnProperty(key)) {
+      verbfile = files[key];
+      break;
+    }
   }
+
+  this.template(verbfile, '.verb.md');
+};
+
+VerbGenerator.prototype.contributing = function contributing() {
+  var contributing = 'contributing.md';
+
+  var files = mapper('templates/contributing/*.md');
+  for (var key in files) {
+    if (this.options.hasOwnProperty(key)) {
+      contributing = files[key];
+      break;
+    }
+  }
+
+  this.template(contributing, 'CONTRIBUTING.md');
 };
 
 VerbGenerator.prototype.pkg = function pkg() {
