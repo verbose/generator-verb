@@ -4,71 +4,6 @@
 
 {%= include("install-npm", {save: true}) %}
 
-## Run tests
-
-```bash
-npm test
-```
-{% var nickname = strip(name, "helper-") %}
-## Register the helper
-
-> This should work with any engine, here are a few examples
-
-### [template]
-
-Register the helper for use with any template engine
-
-```js
-template.helper('{%= nickname %}', require('{%= name %}'));
-```
-
-### [assemble]
-
-To register the helper for use with [assemble] v0.6.x:
-
-```js
-assemble.helper('{%= nickname %}', require('{%= name %}'));
-```
-
-### [verb]
-
-Register the helper for use with [verb]:
-
-```js
-var verb = require('verb');
-verb.helper('{%= nickname %}', require('{%= name %}'));
-
-verb.task('default', function() {
-  verb.src('.verb*.md')
-    .pipe(verb.dest('./'));
-});
-```
-
-### [handlebars]
-
-```js
-var handlebars = require('handlebars');
-handlebars.registerHelper('{%= nickname %}', require('{%= name %}'));
-```
-
-### [Lo-Dash] or [underscore]
-
-```js
-// as a mixin
-_.mixin({{%= nickname %}: {%= nickname %}Helper});
-_.template('<%= _.{%= nickname %}("fixtures/*.txt") %>', {});
-//=> 'AAA\nBBB\nCCC'
-
-// passed on the context
-_.template('<%= {%= nickname %}("fixtures/*.txt") %>', {{%= nickname %}: {%= nickname %}Helper});
-//=> 'AAA\nBBB\nCCC'
-
-// as an import
-var settings = {imports: {{%= nickname %}: {%= nickname %}Helper}};
-_.template('<%= {%= nickname %}("fixtures/*.txt") %>', {}, settings);
-//=> 'AAA\nBBB\nCCC'
-```
-
 ## Example usage
 
 With Handlebars:
@@ -89,10 +24,80 @@ With Verb (lo-dash, with special delimiters to avoid delimiter collision in mark
 {%= "{%%= " + nickname + "('') %}" %}
 ```
 
+## Register the helper
+
+> This should work with any engine, here are a few examples
+
+#### [template]
+
+Register the helper for use with any template engine
+
+```js
+template.helper('{%= nickname %}', require('{%= name %}'));
+```
+
+#### [assemble]
+
+To register the helper for use with [assemble] v0.6.x:
+
+```js
+assemble.helper('{%= nickname %}', require('{%= name %}'));
+```
+
+#### [verb]
+
+Register the helper for use with [verb]:
+
+```js
+var verb = require('verb');
+verb.helper('{%= nickname %}', require('{%= name %}'));
+
+verb.task('default', function() {
+  verb.src('.verb*.md')
+    .pipe(verb.dest('./'));
+});
+```
+
+#### [handlebars]
+
+```js
+var handlebars = require('handlebars');
+handlebars.registerHelper('{%= nickname %}', require('{%= name %}'));
+```
+
+#### [Lo-Dash] or [underscore]
+
+```js
+// as a mixin
+_.mixin({{%= nickname %}: {%= nickname %}Helper});
+_.template('<%= _.{%= nickname %}("fixtures/*.txt") %>', {});
+//=> 'AAA\nBBB\nCCC'
+
+// passed on the context
+_.template('<%= {%= nickname %}("fixtures/*.txt") %>', {{%= nickname %}: {%= nickname %}Helper});
+//=> 'AAA\nBBB\nCCC'
+
+// as an import
+var settings = {imports: {{%= nickname %}: {%= nickname %}Helper}};
+_.template('<%= {%= nickname %}("fixtures/*.txt") %>', {}, settings);
+//=> 'AAA\nBBB\nCCC'
+```
+
+
+## Running tests
+
+Install dev dependencies:
+
+```bash
+npm install -d && mocha
+```
+
+
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue]({%= bugs.url %})
 
 To request or contribute a helper to the [github.com/helpers][helpers] org, please read [this contributing guide][guide] to get started.
+
 
 ## Author
 {%= include("author") %}

@@ -2,14 +2,7 @@
 
 > {%= description %}
 
-## Install
 {%= include("install-npm", {save: true}) %}
-
-## Run tests
-
-```bash
-npm test
-```
 
 ## Usage
 
@@ -18,7 +11,16 @@ var <%= _.namify(appname) %> = require('{%= name %}');
 ```
 
 ## API
-{%= comments("index.js") %}
+{%= apidocs("index.js") %}
+
+
+## Run tests
+
+Install dev dependencies:
+
+```bash
+node i -d && mocha
+```
 
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue]({%= bugs.url %})
