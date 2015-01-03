@@ -1,5 +1,6 @@
 /*!
  * generator-verb <https://github.com/assemble/generator-verb>
+ *
  * Copyright (c) 2014 Jon Schlinkert, contributors.
  * Licensed under the MIT License
  */
@@ -127,41 +128,28 @@ VerbGenerator.prototype.askFor = function askFor() {
   }.bind(this));
 };
 
-
-/**
- * Why do `fs.existsSync` when collision detection is
- * already built-in?
- *
- * IMO, it makes for a better experience. This way,
- * if the file already exists, it's simply skipped.
- */
-
-VerbGenerator.prototype.git = function git() {
-  if (!fs.existsSync('.gitignore')) {
-    this.copy('gitignore', '.gitignore');
+function safeCopy(thisArg, from, to) {
+  if (!fs.existsSync(to)) {
+    thisArg.copy(from, to);
   }
+}
 
-  if (!fs.existsSync('.gitattributes')) {
-    this.copy('gitattributes', '.gitattributes');
+function safeTemplate(thisArg, from, to) {
+  if (!fs.existsSync(to)) {
+    thisArg.template(from, to);
   }
+}
+
+VerbGenerator.prototype.dotfiles = function dotfiles() {
+  safeCopy(this, 'gitignore', '.gitignore');
+  safeCopy(this, 'gitattributes', '.gitattributes');
+  safeCopy(this, 'editorconfig', '.editorconfig');
+  safeCopy(this, 'jshintrc', '.jshintrc');
 };
 
-VerbGenerator.prototype.index = function index() {
-  if (!fs.existsSync('index.js')) {
-    this.template('index.js', 'index.js');
-  }
-};
-
-VerbGenerator.prototype.jshintrc = function jshintrc() {
-  if (!fs.existsSync('.jshintrc')) {
-    this.copy('jshintrc', '.jshintrc');
-  }
-};
-
-VerbGenerator.prototype.license = function license() {
-  if (!fs.existsSync('LICENSE-MIT')) {
-    this.template('LICENSE-MIT');
-  }
+VerbGenerator.prototype.root = function root() {
+  safeTemplate(this, 'index.js', 'index.js');
+  safeTemplate(this, 'LICENSE-MIT');
 };
 
 VerbGenerator.prototype.tests = function tests() {
@@ -169,7 +157,7 @@ VerbGenerator.prototype.tests = function tests() {
 };
 
 VerbGenerator.prototype.travis = function travis() {
-  if(this.options['travis']) {
+  if (this.options['travis']) {
     this.copy('travis.yml', '.travis.yml');
   }
 };
@@ -183,32 +171,23 @@ function mapper(patterns, cwd) {
   }, {});
 }
 
-VerbGenerator.prototype.verb = function verb() {
-  var verbfile = 'verb.md';
-
-  var files = mapper('templates/verbfiles/*.md');
+VerbGenerator.prototype._matcher = function(src, dest, dir, pattern) {
+  var files = mapper('templates/' + dir + '/' + (pattern || '*.md'));
   for (var key in files) {
     if (this.options.hasOwnProperty(key)) {
-      verbfile = files[key];
+      src = files[key];
       break;
     }
   }
+  this.template(src, dest);
+};
 
-  this.template(verbfile, '.verb.md');
+VerbGenerator.prototype.verb = function verb() {
+  this._matcher('verb.md', '.verb.md', 'verbfiles');
 };
 
 VerbGenerator.prototype.contributing = function contributing() {
-  var contributing = 'contributing.md';
-
-  var files = mapper('templates/contributing/*.md');
-  for (var key in files) {
-    if (this.options.hasOwnProperty(key)) {
-      contributing = files[key];
-      break;
-    }
-  }
-
-  this.template(contributing, 'CONTRIBUTING.md');
+  this._matcher('contributing.md', 'CONTRIBUTING.md', 'contributing');
 };
 
 VerbGenerator.prototype.pkg = function pkg() {
