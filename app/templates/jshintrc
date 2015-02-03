@@ -12,7 +12,7 @@
   "noarg": true,
   "node": true,
   "sub": true,
-  "undef": true,
+  "undef": "var",
   "unused": true,
   "mocha": true
 }
