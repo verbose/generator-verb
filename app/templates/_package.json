@@ -16,15 +16,17 @@
   },
   "license": {
     "type": "MIT",
-    "url": "https://github.com/<%= username %>/<%= appname %>/blob/master/LICENSE-MIT"
+    "url": "https://github.com/<%= username %>/<%= appname %>/blob/master/LICENSE"
   },
+  "files": ["index.js"],
   "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha"
   },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "*",
     "should": "*"
