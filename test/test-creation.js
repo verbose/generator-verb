@@ -1,103 +1,33 @@
 /*global describe, beforeEach, it*/
 'use strict';
 
-var path    = require('path');
+var path = require('path');
 var helpers = require('yeoman-generator').test;
+var assert = require('yeoman-generator').assert;
+var os = require('os');
 
 
-describe('verb', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:app', ['../../app']);
-      done();
-    }.bind(this));
+describe('verb:app', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, '../app'))
+      .inDir(path.join(os.tmpdir(), './temp-test'))
+      .withOptions({
+        'skip-install': true
+      })
+      .withPrompt({
+        someOption: true
+      })
+      .on('end', done);
   });
 
-  it('creates expected files', function (done) {
-    var expected = [
-      'package.json',
-      '.verb.md',
-      '.jshintrc',
-      '.gitignore',
+  it('creates files', function () {
+    assert.file([
       '.gitattributes',
-      'LICENSE-MIT',
-    ];
-
-    helpers.mockPrompt(this.app, {
-      projectname: 'verb-project',
-      projectdesc: 'The most interesting project in the world > Verb',
-      username:    'jonschlinkert',
-      authorname:  'Jon Schlinkert',
-      authorurl:   'https://github.com/jonschlinkert',
-    });
-
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-describe('verb', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:app', ['../../app']);
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = [
-      '.verb.md',
-      'package.json',
-      '.jshintrc',
       '.gitignore',
-      '.gitattributes',
-      'LICENSE-MIT',
-    ];
-
-    helpers.mockPrompt(this.app, {
-      projectname: 'verb-project',
-      projectdesc: 'The most interesting project in the world > Verb',
-      username:    'jonschlinkert',
-      authorname:  'Jon Schlinkert',
-      authorurl:   'https://github.com/jonschlinkert',
-    });
-
-    this.app.options['readme'] = true;
-    this.app.options['skip-install'] = true;
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
-  });
-});
-
-/**
- * Config
- */
-
-describe('verb:doc', function () {
-  beforeEach(function (done) {
-    helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
-      if (err) {return done(err);}
-
-      this.app = helpers.createGenerator('verb:doc', ['../../doc'], 'authors.md');
-      done();
-    }.bind(this));
-  });
-
-  it('creates expected files', function (done) {
-    var expected = [process.cwd() + '/docs/authors.md'];
-
-    this.app.run({}, function () {
-      helpers.assertFile(expected);
-      done();
-    });
+      '.jshintrc',
+      '.verb.md',
+      'LICENSE',
+      'package.json'
+    ]);
   });
 });
