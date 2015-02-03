@@ -12,13 +12,15 @@ var should = require('should');
 var <%= _.namify(appname) %> = require('./');
 
 describe('<%= _.namify(appname) %>', function () {
-  it('should equal', function () {
-    <%= _.namify(appname) %>({a: 'b'}).should.eql({a: 'b'});
-    <%= _.namify(appname) %>('abc').should.equal('abc');
+  it('should:', function () {
+    <%= _.namify(appname) %>('a').should.equal({a: 'b'});
+    <%= _.namify(appname) %>('a').should.eql('a');
+    <%= _.namify(appname) %>('a').should.eql('a');
   });
 
-  it('should have property.', function () {
-    <%= _.namify(appname) %>({a: 'b'}).should.have.property('a', 'b');
+  it('should throw an error:', function () {
+    (function () {
+      <%= _.namify(appname) %>();
+    }).should.throw('<%= _.namify(appname) %> expects valid arguments');
   });
 });
-
