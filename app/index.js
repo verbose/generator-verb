@@ -11,27 +11,19 @@ var fs = require('fs');
 var path = require('path');
 var util = require('util');
 var glob = require('glob');
+var chalk = require('chalk');
 var changeCase = require('change-case');
 var Configstore = require('configstore');
 var normalize = require('normalize-pkg');
 var yeoman = require('yeoman-generator');
+var wrap = require('word-wrap');
 var namify = require('namify');
 var log = require('verbalize');
-
-function introductionMessage() {
-  console.log(log.bold('  Head\'s up!'));
-  console.log();
-  console.log(log.gray('  Verb saves time by offering to re-use answers from the'));
-  console.log(log.gray('  previous run. If something is incorrect, no worries!'));
-  console.log(log.gray('  Just provide a new value!'));
-  console.log();
-}
+var yosay = require('yosay');
 
 log.runner = 'generator-verb';
-
 var verbConfig = new Configstore('generator-verb');
 var userPkg = {};
-
 
 var VerbGenerator = module.exports = function VerbGenerator() {
   var self = this;
@@ -74,7 +66,11 @@ VerbGenerator.prototype.askFor = function askFor() {
 
   // have Yeoman greet the user, unless skipped
   if (!this.options['skip-welcome-message']) {
-    console.log(this.yeoman);
+    this.log(yosay(
+      chalk.gray('Welcome to the stellar ')
+       + chalk.bold('Verb')
+       + chalk.gray(' generator!')
+    ));
     introductionMessage();
   }
 
@@ -149,7 +145,7 @@ VerbGenerator.prototype.dotfiles = function dotfiles() {
 
 VerbGenerator.prototype.root = function root() {
   safeTemplate(this, 'index.js', 'index.js');
-  safeTemplate(this, 'LICENSE-MIT');
+  safeTemplate(this, 'LICENSE');
 };
 
 VerbGenerator.prototype.tests = function tests() {
@@ -186,10 +182,6 @@ VerbGenerator.prototype.verb = function verb() {
   this._matcher('verb.md', '.verb.md', 'verbfiles');
 };
 
-VerbGenerator.prototype.contributing = function contributing() {
-  this._matcher('contributing.md', 'CONTRIBUTING.md', 'contributing');
-};
-
 VerbGenerator.prototype.pkg = function pkg() {
   var pkgTemplate = this.readFileAsString(__dirname + '/templates/_package.json');
   var verbDefaultPkg = this.engine(pkgTemplate, this);
@@ -218,3 +210,10 @@ VerbGenerator.prototype.pkg = function pkg() {
     this.template('_package.json', 'package.json');
   }
 };
+
+function introductionMessage() {
+  console.log(log.bold('  Head\'s up!'));
+  console.log();
+  console.log(chalk.gray(wrap('verb-generator saves time by offering to re-use answers from the previous run. If something is incorrect, no worries! Just provide a new value!')));
+  console.log();
+}
