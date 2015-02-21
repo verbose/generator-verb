@@ -42,12 +42,16 @@ VerbGenerator.prototype.testFiles = function testFiles() {
   }
   this.homepage = pkg.homepage ? pkg.homepage : '';
   this.authorname = pkg.author.name ? pkg.author.name : '';
-  var repo = url.parse(pkg.repository.url).path;
+  var repo = '';
+  if (pkg.repository && typeof pkg.repository === 'string') {
+    repo = pkg.repository;
+  } else if (pkg.repository && typeof pkg.repository === 'object') {
+    repo = url.parse(pkg.repository.url).path;
+  }
   this.username = repo.split('/').filter(Boolean)[0];
 
   if(this.name === 'mocha') {
-    this.template('mocha.opts', 'test/mocha.opts');
-    this.template('mocha.js', 'test/test.js');
+    this.template('test.js', 'test/test.js');
   }
 
   if(this.name === 'test') {
