@@ -19,7 +19,7 @@ var <%= _.namify(appname) %> = require('{%= name %}');
 Install dev dependencies:
 
 ```bash
-node i -d && mocha
+npm i -d && npm test
 ```
 
 ## Contributing

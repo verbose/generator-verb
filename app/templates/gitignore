@@ -1,12 +1,12 @@
 *.DS_store
 *.sublime-*
 _gh_pages
-actual
 bower_components
 node_modules
 npm-debug.log
-temp
+actual
 test/actual
+temp
 tmp
 TODO.md
 vendor
