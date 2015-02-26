@@ -153,9 +153,7 @@ VerbGenerator.prototype.tests = function tests() {
 };
 
 VerbGenerator.prototype.travis = function travis() {
-  if (this.options['travis']) {
-    this.copy('travis.yml', '.travis.yml');
-  }
+  this.copy('travis.yml', '.travis.yml');
 };
 
 function mapper(patterns, cwd) {
