@@ -1,8 +1,8 @@
 /*!
  * <%= _.slugify(projectname) %> <https://github.com/<%= username %>/<%= _.slugify(projectname) %>>
  *
- * Copyright (c) <%= (new Date).getFullYear() %> <%= authorname %>.
- * Licensed under the MIT license.
+ * Copyright (c) <%= (new Date).getFullYear() %>, <%= authorname %>.
+ * Licensed under the MIT License.
  */
 
 'use strict';
