@@ -11,19 +11,18 @@ var <%= _.namify(appname) %> = require('{%= name %}');
 ```
 
 ## API
-{%= apidocs("index.js") %}
+<!-- add a path or glob pattern for files with code comments to use for docs  -->
+{%%= apidocs("index.js") %}
 
+## Related projects
+<!-- add an array of related projects, then un-escape the helper -->
+{%%= related([]) %}  
 
-## Run tests
-
-Install dev dependencies:
-
-```bash
-npm i -d && npm test
-```
+## Running tests
+{%= include("tests") %}
 
 ## Contributing
-Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue]({%= bugs.url %})
+{%= include("contributing") %}
 
 ## Author
 {%= include("author") %}
@@ -35,3 +34,4 @@ Pull requests and stars are always welcome. For bugs and feature requests, [plea
 ***
 
 {%= include("footer") %}
+<!-- deps:helper-related -->
