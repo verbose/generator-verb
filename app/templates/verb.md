@@ -34,4 +34,3 @@ var <%= _.namify(appname) %> = require('{%= name %}');
 ***
 
 {%= include("footer") %}
-<!-- deps:helper-related -->
