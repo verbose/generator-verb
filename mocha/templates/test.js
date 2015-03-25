@@ -7,14 +7,15 @@
 
 'use strict';
 
+/* deps:mocha */
 var assert = require('assert');
 var should = require('should');
 var <%= _.namify(appname) %> = require('./');
 
 describe('<%= _.namify(appname) %>', function () {
   it('should:', function () {
-    <%= _.namify(appname) %>('a').should.equal({a: 'b'});
-    <%= _.namify(appname) %>('a').should.eql('a');
+    <%= _.namify(appname) %>('a').should.eql({a: 'b'});
+    <%= _.namify(appname) %>('a').should.equal('a');
   });
 
   it('should throw an error:', function () {
