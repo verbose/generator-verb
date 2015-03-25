@@ -11,3 +11,5 @@ tmp
 TODO.md
 vendor
 .idea
+benchmark
+coverage
