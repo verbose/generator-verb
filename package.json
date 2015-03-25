@@ -1,7 +1,7 @@
 {
   "name": "generator-verb",
   "description": "Kickstart documentation for any project! This is the official Yeoman generator for Verb, the zero-configuration markdown docs generator that is extremely easy to use and extend.",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "homepage": "https://github.com/assemble/generator-verb",
   "author": {
     "name": "Jon Schlinkert",
