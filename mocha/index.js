@@ -51,10 +51,10 @@ VerbGenerator.prototype.testFiles = function testFiles() {
   this.username = repo.split('/').filter(Boolean)[0];
 
   if(this.name === 'mocha') {
-    this.template('test.js', 'test/test.js');
+    this.template('test.js', 'test.js');
   }
 
   if(this.name === 'test') {
-    this.template('test.js', 'test.js');
+    this.template('test.js', 'test/test.js');
   }
 };

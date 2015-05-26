@@ -2,6 +2,7 @@
 
 > {%= description %}
 
+## Install
 {%= include("install-npm", {save: true}) %}
 
 ## Usage
