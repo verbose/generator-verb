@@ -3,21 +3,12 @@
   "description": "<%= projectdesc %>",
   "version": "0.1.0",
   "homepage": "https://github.com/<%= username %>/<%= appname %>",
-  "author": {
-    "name": "<%= authorname %>",
-    "url": "<%= authorurl %>"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/<%= username %>/<%= appname %>.git"
-  },
+  "author": "<%= authorname %> (<%= authorurl %>)",
+  "repository": "<%= username %>/<%= appname %>",
   "bugs": {
     "url": "https://github.com/<%= username %>/<%= appname %>/issues"
   },
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/<%= username %>/<%= appname %>/blob/master/LICENSE"
-  },
+  "license": "MIT",
   "files": [
     "index.js"
   ],
